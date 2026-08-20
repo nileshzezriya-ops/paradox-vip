@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PERADOX-VIP - License Manager</title>
+    <link href="https://cloudflare.com" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #070d19;
+            --panel-bg: #0d1726;
+            --accent-blue: #00d2ff;
+            --accent-purple: #7000ff;
+            --text-main: #ffffff;
+            --text-muted: #64748b;
+            --border-color: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Top Header */
+        .header {
+            background-color: var(--panel-bg);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-logo {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+        }
+
+        .brand-name {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: linear-gradient(to right, #fff, var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .user-profile {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #1e293b, #334155);
+            border: 2px solid var(--accent-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--accent-blue);
+        }
+
+        /* Main Content Frame */
+        .main-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            padding-bottom: 90px;
+        }
+
+        .view-section {
+            display: none;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        /* Welcome Banner */
+        .welcome-banner {
+            background: linear-gradient(135deg, rgba(13, 23, 38, 0.8), rgba(7, 13, 25, 0.9));
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-banner::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 150px;
+            height: 150px;
+            background: var(--accent-blue);
+            filter: blur(80px);
+            opacity: 0.15;
+        }
+
+        .welcome-title {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .welcome-title span {
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        .welcome-subtitle {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* Grid Statistics */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .icon-blue { background: rgba(0, 210, 255, 0.1); color: var(--accent-blue); }
+        .icon-purple { background: rgba(112, 0, 255, 0.1); color: var(--accent-purple); }
+        .icon-red { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+        .icon-green { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
+
+        .stat-value {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Form Controls (Generator Tab) */
+        .section-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .balance-badge {
+            background: rgba(0, 210, 255, 0.08);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input {
+            width: 100%;
+            background-color: #09111e;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+            color: white;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.1);
+        }
+
+        .btn-primary {
+            width: 100%;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 14px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(112, 0, 255, 0.3);
+        }
+
+        /* Bottom Navigation Bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--panel-bg);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 11px;
+            cursor: pointer;
+            flex: 1;
+            transition: 0.2s;
+        }
+
+        .nav-item i {
+            font-size: 18px;
+        }
+
+        .nav-item.active {
+            color: var(--accent-blue);
+        }
+
+        /* List Styling (Keys and Users) */
+        .data-list {
+            margin-top: 15px;
+        }
+
+        .no-data {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 40px 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="header">
+        <div class="brand">
+            <div class="brand-logo">
+                <i class="fas fa-cube"></i>
+            </div>
+            <div class="brand-name">PERADOX-VIP</div>
+        </div>
+        <div class="user-profile">A</div>
+    </div>
+
+    <!-- Main Screens View Frame -->
+    <div class="main-container">
+        
+        <!-- Dashboard Screen -->
+        <div id="dashboard" class="view-section active">
+            <div class="welcome-banner">
+                <div class="welcome-title">Welcome back, <span>admin 👋</span></div>
+                <div class="welcome-subtitle">System overview & real-time analytics</div>
+            </div>
+
+            <div style="font-size: 12px; color: var(--accent-blue); font-weight: bold; letter-spacing: 1px;">📊 OVERVIEW & STATISTICS</div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon icon-red"><i class="fas fa-desktop"></i></div>
+                    <div class="stat-value">1</div>
+                    <div class="stat-label">Total Panels</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-blue"><i class="fas fa-key"></i></div>
+                    <div class="stat-value" id="dash-key-count">0</div>
+                    <div class="stat-label">Total Keys</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-purple"><i class="fas fa-user-shield"></i></div>
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Admin Keys</div>
+                </div>
+                <div class="stat-card">
