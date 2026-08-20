@@ -33,7 +33,6 @@
             overflow: hidden;
         }
 
-        /* Top Header */
         .header {
             background-color: var(--panel-bg);
             padding: 15px 20px;
@@ -82,7 +81,6 @@
             color: var(--accent-blue);
         }
 
-        /* Main Content Frame */
         .main-container {
             flex: 1;
             overflow-y: auto;
@@ -98,45 +96,18 @@
             display: block;
         }
 
-        /* Welcome Banner */
         .welcome-banner {
             background: linear-gradient(135deg, rgba(13, 23, 38, 0.8), rgba(7, 13, 25, 0.9));
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 20px;
             margin-bottom: 20px;
-            position: relative;
-            overflow: hidden;
         }
 
-        .welcome-banner::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 150px;
-            height: 150px;
-            background: var(--accent-blue);
-            filter: blur(80px);
-            opacity: 0.15;
-        }
+        .welcome-title { font-size: 18px; margin-bottom: 5px; }
+        .welcome-title span { color: var(--accent-blue); font-weight: bold; }
+        .welcome-subtitle { color: var(--text-muted); font-size: 13px; }
 
-        .welcome-title {
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-
-        .welcome-title span {
-            color: var(--accent-blue);
-            font-weight: bold;
-        }
-
-        .welcome-subtitle {
-            color: var(--text-muted);
-            font-size: 13px;
-        }
-
-        /* Grid Statistics */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -164,7 +135,6 @@
             align-items: center;
             justify-content: center;
             font-size: 16px;
-            margin-bottom: 5px;
         }
 
         .icon-blue { background: rgba(0, 210, 255, 0.1); color: var(--accent-blue); }
@@ -172,25 +142,11 @@
         .icon-red { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
         .icon-green { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
 
-        .stat-value {
-            font-size: 22px;
-            font-weight: 700;
-        }
+        .stat-value { font-size: 22px; font-weight: 700; }
+        .stat-label { color: var(--text-muted); font-size: 11px; text-transform: uppercase; }
 
-        .stat-label {
-            color: var(--text-muted);
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Form Controls (Generator Tab) */
-        .section-title {
-            font-size: 18px;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
+        .section-title { font-size: 18px; margin-bottom: 15px; font-weight: 600; }
+        
         .balance-badge {
             background: rgba(0, 210, 255, 0.08);
             border: 1px solid rgba(0, 210, 255, 0.2);
@@ -203,19 +159,9 @@
             gap: 8px;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 12px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-        }
-
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 12px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; }
+        
         .form-input {
             width: 100%;
             background-color: #09111e;
@@ -225,12 +171,6 @@
             color: white;
             font-size: 14px;
             outline: none;
-            transition: 0.3s;
-        }
-
-        .form-input:focus {
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 10px rgba(0, 210, 255, 0.1);
         }
 
         .btn-primary {
@@ -247,10 +187,8 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            box-shadow: 0 4px 15px rgba(112, 0, 255, 0.3);
         }
 
-        /* Bottom Navigation Bar */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -261,7 +199,6 @@
             display: flex;
             justify-content: space-around;
             padding: 10px 0;
-            z-index: 100;
         }
 
         .nav-item {
@@ -274,55 +211,42 @@
             font-size: 11px;
             cursor: pointer;
             flex: 1;
-            transition: 0.2s;
         }
 
-        .nav-item i {
-            font-size: 18px;
+        .nav-item i { font-size: 18px; }
+        .nav-item.active { color: var(--accent-blue); }
+
+        .key-item {
+            background: var(--panel-bg);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .nav-item.active {
-            color: var(--accent-blue);
-        }
-
-        /* List Styling (Keys and Users) */
-        .data-list {
-            margin-top: 15px;
-        }
-
-        .no-data {
-            text-align: center;
-            color: var(--text-muted);
-            padding: 40px 20px;
-            font-size: 14px;
-        }
+        .no-data { text-align: center; color: var(--text-muted); padding: 40px 20px; font-size: 14px; }
     </style>
 </head>
 <body>
 
-    <!-- Header Section -->
     <div class="header">
         <div class="brand">
-            <div class="brand-logo">
-                <i class="fas fa-cube"></i>
-            </div>
+            <div class="brand-logo"><i class="fas fa-cube"></i></div>
             <div class="brand-name">PERADOX-VIP</div>
         </div>
         <div class="user-profile">A</div>
     </div>
 
-    <!-- Main Screens View Frame -->
     <div class="main-container">
-        
-        <!-- Dashboard Screen -->
+        <!-- Dashboard View -->
         <div id="dashboard" class="view-section active">
             <div class="welcome-banner">
                 <div class="welcome-title">Welcome back, <span>admin 👋</span></div>
                 <div class="welcome-subtitle">System overview & real-time analytics</div>
             </div>
-
-            <div style="font-size: 12px; color: var(--accent-blue); font-weight: bold; letter-spacing: 1px;">📊 OVERVIEW & STATISTICS</div>
-            
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon icon-red"><i class="fas fa-desktop"></i></div>
@@ -331,7 +255,7 @@
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon icon-blue"><i class="fas fa-key"></i></div>
-                    <div class="stat-value" id="dash-key-count">0</div>
+                    <div class="stat-value" id="dash-total-keys">0</div>
                     <div class="stat-label">Total Keys</div>
                 </div>
                 <div class="stat-card">
@@ -340,3 +264,32 @@
                     <div class="stat-label">Admin Keys</div>
                 </div>
                 <div class="stat-card">
+                    <div class="stat-icon icon-green"><i class="fas fa-users-cog"></i></div>
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Reseller Keys</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Generate View -->
+        <div id="generate" class="view-section">
+            <div class="section-title">🔑 Key Generator</div>
+            <div class="balance-badge">
+                <i class="fas fa-wallet"></i><span>Balance: <strong>∞ UNLIMITED</strong></span>
+            </div>
+            <div class="form-group">
+                <label>Custom Key Name (Optional)</label>
+                <input type="text" id="custom-name" class="form-input" placeholder="E.G. VIP-PREMIUM-2026">
+            </div>
+            <div class="form-group">
+                <label>Duration</label>
+                <select id="duration" class="form-input">
+                    <option value="1 Day">1 Day</option>
+                    <option value="7 Days">7 Days</option>
+                    <option value="30 Days">30 Days</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Device Limit</label>
+                <input type="number" id="device-limit" class="form-input" value="1">
+            </div>
