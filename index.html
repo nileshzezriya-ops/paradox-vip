@@ -3,293 +3,613 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PERADOX-VIP - License Manager</title>
-    <link href="https://cloudflare.com" rel="stylesheet">
-    <style>
-        :root {
-            --bg-dark: #070d19;
-            --panel-bg: #0d1726;
-            --accent-blue: #00d2ff;
-            --accent-purple: #7000ff;
-            --text-main: #ffffff;
-            --text-muted: #64748b;
-            --border-color: #1e293b;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .header {
-            background-color: var(--panel-bg);
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .brand-logo {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
-        }
-
-        .brand-name {
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            background: linear-gradient(to right, #fff, var(--accent-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .user-profile {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, #1e293b, #334155);
-            border: 2px solid var(--accent-blue);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: var(--accent-blue);
-        }
-
-        .main-container {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            padding-bottom: 90px;
-        }
-
-        .view-section {
-            display: none;
-        }
-
-        .view-section.active {
-            display: block;
-        }
-
-        .welcome-banner {
-            background: linear-gradient(135deg, rgba(13, 23, 38, 0.8), rgba(7, 13, 25, 0.9));
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .welcome-title { font-size: 18px; margin-bottom: 5px; }
-        .welcome-title span { color: var(--accent-blue); font-weight: bold; }
-        .welcome-subtitle { color: var(--text-muted); font-size: 13px; }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .stat-card {
-            background-color: var(--panel-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .stat-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-        }
-
-        .icon-blue { background: rgba(0, 210, 255, 0.1); color: var(--accent-blue); }
-        .icon-purple { background: rgba(112, 0, 255, 0.1); color: var(--accent-purple); }
-        .icon-red { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
-        .icon-green { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
-
-        .stat-value { font-size: 22px; font-weight: 700; }
-        .stat-label { color: var(--text-muted); font-size: 11px; text-transform: uppercase; }
-
-        .section-title { font-size: 18px; margin-bottom: 15px; font-weight: 600; }
-        
-        .balance-badge {
-            background: rgba(0, 210, 255, 0.08);
-            border: 1px solid rgba(0, 210, 255, 0.2);
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; font-size: 12px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; }
-        
-        .form-input {
-            width: 100%;
-            background-color: #09111e;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 12px;
-            color: white;
-            font-size: 14px;
-            outline: none;
-        }
-
-        .btn-primary {
-            width: 100%;
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 14px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: var(--panel-bg);
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 11px;
-            cursor: pointer;
-            flex: 1;
-        }
-
-        .nav-item i { font-size: 18px; }
-        .nav-item.active { color: var(--accent-blue); }
-
-        .key-item {
-            background: var(--panel-bg);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 12px;
-            border: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .no-data { text-align: center; color: var(--text-muted); padding: 40px 20px; font-size: 14px; }
-    </style>
+    <title>ArcRoot - Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">◆</div>
+                    <span class="logo-text">ArcRoot</span>
+                </div>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search..." id="globalSearch">
+                    </div>
+                    <div class="user-profile">
+                        <div class="profile-avatar">A</div>
+                    </div>
+                </div>
+            </div>
+        </header>
 
-    <div class="header">
-        <div class="brand">
-            <div class="brand-logo"><i class="fas fa-cube"></i></div>
-            <div class="brand-name">PERADOX-VIP</div>
+        <div class="main-wrapper">
+            <!-- Sidebar Navigation -->
+            <aside class="sidebar">
+                <nav class="nav-menu">
+                    <a href="#" class="nav-item active" data-page="dashboard">
+                        <span class="nav-icon">📊</span>
+                        <span class="nav-label">Dashboard</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="generate">
+                        <span class="nav-icon">🔑</span>
+                        <span class="nav-label">Generate</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="keys">
+                        <span class="nav-icon">📋</span>
+                        <span class="nav-label">Keys</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="users">
+                        <span class="nav-icon">👥</span>
+                        <span class="nav-label">Users</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="profile">
+                        <span class="nav-icon">⚙️</span>
+                        <span class="nav-label">Profile</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Dashboard Page -->
+                <section id="dashboard" class="page active">
+                    <div class="page-header">
+                        <h1>Welcome back, <span class="text-cyan">admin</span> 👋</h1>
+                        <p>System overview & real-time analytics</p>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #8b5cf6, #6366f1);">
+                                <span>🔐</span>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-number" id="totalPanels">1</div>
+                                <div class="stat-label">TOTAL PANELS</div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">
+                                <span>🔑</span>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-number" id="totalKeys">0</div>
+                                <div class="stat-label">TOTAL KEYS</div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #a855f7, #7c3aed);">
+                                <span>👤</span>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-number" id="adminKeys">0</div>
+                                <div class="stat-label">ADMIN KEYS</div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
+                                <span>🤝</span>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-number" id="resellerKeys">0</div>
+                                <div class="stat-label">RESELLER KEYS</div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                                <span>⭐</span>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-number" id="totalAdmins">0</div>
+                                <div class="stat-label">TOTAL ADMINS</div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #ec4899, #db2777);">
+                                <span>👥</span>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-number" id="totalResellers">0</div>
+                                <div class="stat-label">TOTAL RESELLERS</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <section class="account-info">
+                        <h2>📋 Account Information</h2>
+                        <div class="account-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Username:</span>
+                                <span class="detail-value" id="accountUsername">admin</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Email:</span>
+                                <span class="detail-value" id="accountEmail">admin@arcroot.com</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Account Type:</span>
+                                <span class="detail-value" id="accountType">Administrator</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Balance:</span>
+                                <span class="detail-value" id="accountBalance">∞ UNLIMITED</span>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+
+                <!-- Generate Keys Page -->
+                <section id="generate" class="page">
+                    <div class="page-header">
+                        <h1>🔑 Key Generator</h1>
+                        <p>Create secure API access tokens</p>
+                    </div>
+
+                    <div class="balance-box">
+                        <span class="balance-icon">💰</span>
+                        <span class="balance-text">Balance: <strong id="genBalance">∞ UNLIMITED</strong></span>
+                    </div>
+
+                    <div class="form-container">
+                        <div class="form-group">
+                            <label>CUSTOM KEY NAME (OPTIONAL)</label>
+                            <input type="text" id="keyName" placeholder="E.G. VIP-PREMIUM-2024" class="form-input">
+                            <small>Leave empty for auto-generated random key</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>KEY TYPE</label>
+                            <select id="keyType" class="form-input">
+                                <option value="standard">Standard Key</option>
+                                <option value="admin">Admin Key</option>
+                                <option value="reseller">Reseller Key</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>DURATION</label>
+                            <select id="duration" class="form-input">
+                                <option value="1">1 Day</option>
+                                <option value="7">7 Days</option>
+                                <option value="30">30 Days</option>
+                                <option value="90">90 Days</option>
+                                <option value="365">1 Year</option>
+                                <option value="unlimited">Unlimited</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>DEVICE LIMIT</label>
+                            <input type="number" id="deviceLimit" placeholder="1" class="form-input" value="1" min="1">
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="bulkGeneration">
+                                <span class="checkbox-label">Bulk Generation - Generate multiple keys at once</span>
+                            </label>
+                        </div>
+
+                        <div id="bulkOptions" class="form-group" style="display: none;">
+                            <label>NUMBER OF KEYS</label>
+                            <input type="number" id="bulkCount" placeholder="10" class="form-input" value="10" min="1" max="100">
+                        </div>
+
+                        <button class="btn-primary" id="generateBtn">⚡ GENERATE KEYS</button>
+                    </div>
+
+                    <div id="generatedKeysResult" class="result-container" style="display: none;">
+                        <h3>✅ Keys Generated Successfully</h3>
+                        <div id="keysList" class="keys-list"></div>
+                        <button class="btn-secondary" id="copyAllKeys">📋 Copy All Keys</button>
+                    </div>
+                </section>
+
+                <!-- Keys Management Page -->
+                <section id="keys" class="page">
+                    <div class="page-header">
+                        <h1>🔐 License Manager</h1>
+                        <p>Control & Monitor API Keys</p>
+                    </div>
+
+                    <div class="keys-toolbar">
+                        <div class="toolbar-left">
+                            <button class="btn-filter" id="filterBtn">☰ Filters</button>
+                            <select id="bulkActionsSelect" class="form-input">
+                                <option value="">-- Bulk Actions --</option>
+                                <option value="delete">Delete Selected</option>
+                                <option value="disable">Disable Selected</option>
+                                <option value="enable">Enable Selected</option>
+                            </select>
+                        </div>
+                        <div class="toolbar-right">
+                            <input type="text" id="keySearch" placeholder="Search key value..." class="form-input">
+                            <button class="btn-search" id="searchBtn">🔍</button>
+                        </div>
+                    </div>
+
+                    <div class="filter-panel" id="filterPanel" style="display: none;">
+                        <div class="filter-group">
+                            <label>Key Type:</label>
+                            <select id="filterType" class="form-input">
+                                <option value="">All Types</option>
+                                <option value="standard">Standard</option>
+                                <option value="admin">Admin</option>
+                                <option value="reseller">Reseller</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Status:</label>
+                            <select id="filterStatus" class="form-input">
+                                <option value="">All Status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="expired">Expired</option>
+                            </select>
+                        </div>
+                        <button class="btn-primary" id="applyFilters">Apply Filters</button>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="keys-table">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="selectAllKeys"></th>
+                                    <th>KEY VALUE</th>
+                                    <th>TYPE</th>
+                                    <th>CREATED BY</th>
+                                    <th>STATUS</th>
+                                    <th>DURATION</th>
+                                    <th>DEVICES</th>
+                                    <th>ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="keysTableBody">
+                                <tr class="empty-state">
+                                    <td colspan="8">No keys found. <a href="#" onclick="showPage('generate')">Generate some</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Users Management Page -->
+                <section id="users" class="page">
+                    <div class="page-header">
+                        <h1>👥 Users Management</h1>
+                        <p>Manage user accounts and permissions</p>
+                    </div>
+
+                    <div class="users-toolbar">
+                        <button class="btn-primary" id="addUserBtn">➕ Add New User</button>
+                        <input type="text" id="userSearch" placeholder="Search users..." class="form-input">
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="users-table">
+                            <thead>
+                                <tr>
+                                    <th>USERNAME</th>
+                                    <th>EMAIL</th>
+                                    <th>TYPE</th>
+                                    <th>STATUS</th>
+                                    <th>BALANCE</th>
+                                    <th>CREATED</th>
+                                    <th>ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody">
+                                <tr>
+                                    <td>admin</td>
+                                    <td>admin@arcroot.com</td>
+                                    <td><span class="badge badge-admin">Administrator</span></td>
+                                    <td><span class="badge badge-active">Active</span></td>
+                                    <td>∞ UNLIMITED</td>
+                                    <td>2024-01-01</td>
+                                    <td>
+                                        <button class="btn-action edit-user" data-username="admin">✏️ Edit</button>
+                                        <button class="btn-action view-user" data-username="admin">👁️ View</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Profile Page -->
+                <section id="profile" class="page">
+                    <div class="page-header">
+                        <h1>⚙️ Profile Settings</h1>
+                        <p>Manage your account and preferences</p>
+                    </div>
+
+                    <div class="profile-container">
+                        <div class="profile-section">
+                            <h2>Personal Information</h2>
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" id="profileName" class="form-input" value="Administrator">
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" id="profileEmail" class="form-input" value="admin@arcroot.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" id="profilePhone" class="form-input" placeholder="+91...">
+                            </div>
+                            <button class="btn-primary" id="saveProfileBtn">💾 Save Changes</button>
+                        </div>
+
+                        <div class="profile-section">
+                            <h2>Security</h2>
+                            <div class="form-group">
+                                <label>Current Password</label>
+                                <input type="password" id="currentPassword" class="form-input" placeholder="Enter current password">
+                            </div>
+                            <div class="form-group">
+                                <label>New Password</label>
+                                <input type="password" id="newPassword" class="form-input" placeholder="Enter new password">
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm Password</label>
+                                <input type="password" id="confirmPassword" class="form-input" placeholder="Confirm new password">
+                            </div>
+                            <button class="btn-primary" id="changePasswordBtn">🔐 Change Password</button>
+                        </div>
+
+                        <div class="profile-section">
+                            <h2>Account Balance</h2>
+                            <div class="balance-info">
+                                <div class="balance-item">
+                                    <span class="balance-label">Current Balance:</span>
+                                    <span class="balance-value">∞ UNLIMITED</span>
+                                </div>
+                                <button class="btn-primary" id="addBalanceBtn">➕ Add Funds</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
         </div>
-        <div class="user-profile">A</div>
     </div>
 
-    <div class="main-container">
-        <!-- Dashboard View -->
-        <div id="dashboard" class="view-section active">
-            <div class="welcome-banner">
-                <div class="welcome-title">Welcome back, <span>admin 👋</span></div>
-                <div class="welcome-subtitle">System overview & real-time analytics</div>
+    <!-- MODALS -->
+
+    <!-- Add Balance Modal -->
+    <div id="addBalanceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>➕ Add Balance</h2>
+                <button class="modal-close" onclick="closeModal('addBalanceModal')">&times;</button>
             </div>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon icon-red"><i class="fas fa-desktop"></i></div>
-                    <div class="stat-value">1</div>
-                    <div class="stat-label">Total Panels</div>
+            <div class="modal-body">
+                <div class="modal-user-info">
+                    <div class="user-avatar" id="balanceUserAvatar">A</div>
+                    <div class="user-details">
+                        <div class="user-name" id="balanceUserName">admin</div>
+                        <div class="user-type" id="balanceUserType">Administrator</div>
+                    </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon icon-blue"><i class="fas fa-key"></i></div>
-                    <div class="stat-value" id="dash-total-keys">0</div>
-                    <div class="stat-label">Total Keys</div>
+                <div class="form-group">
+                    <label>Enter Amount (Rs)</label>
+                    <input type="number" id="balanceAmount" class="form-input" placeholder="0" min="0" step="1">
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon icon-purple"><i class="fas fa-user-shield"></i></div>
-                    <div class="stat-value">0</div>
-                    <div class="stat-label">Admin Keys</div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="balanceDescription" class="form-input" placeholder="Reason for adding balance..." rows="3"></textarea>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon icon-green"><i class="fas fa-users-cog"></i></div>
-                    <div class="stat-value">0</div>
-                    <div class="stat-label">Reseller Keys</div>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('addBalanceModal')">CANCEL</button>
+                <button class="btn-primary" id="confirmAddBalance">➕ ADD FUNDS</button>
             </div>
         </div>
+    </div>
 
-        <!-- Generate View -->
-        <div id="generate" class="view-section">
-            <div class="section-title">🔑 Key Generator</div>
-            <div class="balance-badge">
-                <i class="fas fa-wallet"></i><span>Balance: <strong>∞ UNLIMITED</strong></span>
+    <!-- Edit Key Modal -->
+    <div id="editKeyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>✏️ Edit Key</h2>
+                <button class="modal-close" onclick="closeModal('editKeyModal')">&times;</button>
             </div>
-            <div class="form-group">
-                <label>Custom Key Name (Optional)</label>
-                <input type="text" id="custom-name" class="form-input" placeholder="E.G. VIP-PREMIUM-2026">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Key Value</label>
+                    <input type="text" id="editKeyValue" class="form-input" disabled>
+                </div>
+                <div class="form-group">
+                    <label>Key Name</label>
+                    <input type="text" id="editKeyName" class="form-input" placeholder="Key name">
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="editKeyStatus" class="form-input">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Device Limit</label>
+                    <input type="number" id="editKeyDeviceLimit" class="form-input" min="1">
+                </div>
             </div>
-            <div class="form-group">
-                <label>Duration</label>
-                <select id="duration" class="form-input">
-                    <option value="1 Day">1 Day</option>
-                    <option value="7 Days">7 Days</option>
-                    <option value="30 Days">30 Days</option>
-                </select>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('editKeyModal')">CANCEL</button>
+                <button class="btn-primary" id="confirmEditKey">💾 SAVE CHANGES</button>
             </div>
-            <div class="form-group">
-                <label>Device Limit</label>
-                <input type="number" id="device-limit" class="form-input" value="1">
+        </div>
+    </div>
+
+    <!-- Edit User Modal -->
+    <div id="editUserModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>✏️ Edit User</h2>
+                <button class="modal-close" onclick="closeModal('editUserModal')">&times;</button>
             </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="editUsername" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="editUserEmail" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>User Type</label>
+                    <select id="editUserType" class="form-input">
+                        <option value="admin">Administrator</option>
+                        <option value="reseller">Reseller</option>
+                        <option value="user">User</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="editUserStatus" class="form-input">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Balance (Rs)</label>
+                    <input type="number" id="editUserBalance" class="form-input" min="0" step="0.01">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('editUserModal')">CANCEL</button>
+                <button class="btn-primary" id="confirmEditUser">💾 SAVE CHANGES</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add User Modal -->
+    <div id="addUserModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>➕ Add New User</h2>
+                <button class="modal-close" onclick="closeModal('addUserModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="newUsername" class="form-input" placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="newUserEmail" class="form-input" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="newUserPassword" class="form-input" placeholder="Enter password">
+                </div>
+                <div class="form-group">
+                    <label>User Type</label>
+                    <select id="newUserType" class="form-input">
+                        <option value="user">User</option>
+                        <option value="reseller">Reseller</option>
+                        <option value="admin">Administrator</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Initial Balance (Rs)</label>
+                    <input type="number" id="newUserBalance" class="form-input" placeholder="0" min="0" step="0.01">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('addUserModal')">CANCEL</button>
+                <button class="btn-primary" id="confirmAddUser">➕ CREATE USER</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- View User Modal -->
+    <div id="viewUserModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>👁️ View User</h2>
+                <button class="modal-close" onclick="closeModal('viewUserModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="user-view-card">
+                    <div class="user-view-header">
+                        <div class="user-view-avatar" id="viewUserAvatar">A</div>
+                        <div class="user-view-info">
+                            <h3 id="viewUsername">Username</h3>
+                            <p id="viewUserType">User Type</p>
+                        </div>
+                    </div>
+                    <div class="user-view-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Email:</span>
+                            <span class="detail-value" id="viewUserEmail">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Status:</span>
+                            <span class="detail-value" id="viewUserStatus">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Balance:</span>
+                            <span class="detail-value" id="viewUserBalance">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Created:</span>
+                            <span class="detail-value" id="viewUserCreated">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Total Keys:</span>
+                            <span class="detail-value" id="viewUserKeys">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('viewUserModal')">CLOSE</button>
+                <button class="btn-primary" id="editFromView">✏️ EDIT USER</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div id="confirmDeleteModal" class="modal">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2>⚠️ Confirm Delete</h2>
+                <button class="modal-close" onclick="closeModal('confirmDeleteModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="deleteConfirmMessage">Are you sure you want to delete this item?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('confirmDeleteModal')">CANCEL</button>
+                <button class="btn-danger" id="confirmDeleteBtn">🗑️ DELETE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Notification -->
+    <div id="successNotification" class="notification success" style="display: none;">
+        <span class="notification-icon">✅</span>
+        <span id="successMessage">Operation completed successfully!</span>
+    </div>
+
+    <!-- Error Notification -->
+    <div id="errorNotification" class="notification error" style="display: none;">
+        <span class="notification-icon">❌</span>
+        <span id="errorMessage">An error occurred!</span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
