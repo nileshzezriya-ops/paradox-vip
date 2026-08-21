@@ -1,1712 +1,1985 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PERADOX-VIP · Owner Panel</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
-    <style>
-        /* ─── RESET & BASE ─── */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        :root {
-            --bg-primary: #0b0a12;
-            --bg-secondary: #12101e;
-            --bg-card: #19162b;
-            --bg-card-hover: #221f3a;
-            --border-color: #2d2848;
-            --text-primary: #f0edff;
-            --text-secondary: #a89fc9;
-            --text-muted: #6b6390;
-            --accent: #a855f7;
-            --accent-glow: rgba(168, 85, 247, 0.25);
-            --accent-hover: #c084fc;
-            --danger: #f87171;
-            --success: #34d399;
-            --warning: #fbbf24;
-            --sidebar-width: 250px;
-            --header-height: 64px;
-            --radius: 14px;
-            --transition: 0.25s ease;
-        }
-        html,
-        body {
-            height: 100%;
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            overflow: hidden;
-        }
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-secondary);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 10px;
-        }
+/* Prince Panel - Enhanced Custom CSS Framework */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
 
-        /* ─── SIDEBAR ─── */
-        .sidebar {
+:root {
+    /* Color Palette */
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --primary-color: #667eea;
+    --primary-dark: #5a6fd8;
+    --secondary-color: #764ba2;
+    --accent-color: #ff6b6b;
+    --success-color: #51cf66;
+    --warning-color: #ffd43b;
+    --danger-color: #ff6b6b;
+    --info-color: #74c0fc;
+    
+    /* Neutral Colors */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-tertiary: #e2e8f0;
+    --text-primary: #1a202c;
+    --text-secondary: #4a5568;
+    --text-muted: #718096;
+    --border-color: #e2e8f0;
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    
+    /* Dark Mode Colors */
+    --dark-bg-primary: #1a202c;
+    --dark-bg-secondary: #2d3748;
+    --dark-bg-tertiary: #4a5568;
+    --dark-text-primary: #f7fafc;
+    --dark-text-secondary: #e2e8f0;
+    --dark-text-muted: #a0aec0;
+    --dark-border-color: #4a5568;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    
+    /* Border Radius */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-2xl: 1.5rem;
+    
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+/* Dark Mode Variables */
+[data-theme="dark"] {
+    --bg-primary: var(--dark-bg-primary);
+    --bg-secondary: var(--dark-bg-secondary);
+    --bg-tertiary: var(--dark-bg-tertiary);
+    --text-primary: var(--dark-text-primary);
+    --text-secondary: var(--dark-text-secondary);
+    --text-muted: var(--dark-text-muted);
+    --border-color: var(--dark-border-color);
+}
+
+/* Global Styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+    transition: all var(--transition-normal);
+}
+
+/* Enhanced Buttons */
+.btn-enhanced {
+    position: relative;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-normal);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.btn-enhanced::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-enhanced:hover::before {
+    left: 100%;
+}
+
+.btn-enhanced:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-primary-enhanced {
+    background: var(--primary-gradient);
+    color: white;
+}
+
+.btn-primary-enhanced:hover {
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* Enhanced Cards */
+.card-enhanced {
+    background: var(--bg-primary);
+    border-radius: var(--radius-2xl);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-enhanced::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--primary-gradient);
+}
+
+.card-enhanced:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl);
+}
+
+/* Glassmorphism Effect */
+.glass-card {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-2xl);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    padding: var(--spacing-xl);
+}
+
+[data-theme="dark"] .glass-card {
+    background: rgba(45, 55, 72, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.float-animation {
+    animation: float 6s ease-in-out infinite;
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.6s ease forwards;
+}
+
+.pulse-animation {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Loading Spinner */
+.spinner {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    margin: 20px auto;
+}
+
+.spinner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 4px solid var(--border-color);
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: var(--bg-primary);
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-md);
+}
+
+.dark-mode-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Hero Section */
+.hero-section {
+    background: var(--primary-gradient);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><defs><pattern id="grain" width="100" height="20" patternUnits="userSpaceOnUse"><circle cx="50" cy="10" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="20" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card-enhanced {
+        padding: var(--spacing-lg);
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .btn-enhanced {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+    
+    .dark-mode-toggle {
+        top: 15px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+    }
+}
+
+/* Utility Classes */
+.text-gradient {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.border-gradient {
+    border: 2px solid;
+    border-image: var(--primary-gradient) 1;
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+    transition: transform var(--transition-normal);
+}
+
+.hover-glow:hover {
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+    transition: box-shadow var(--transition-normal);
+}
+
+/* Form Enhancements */
+.form-enhanced .form-control {
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--border-color);
+    padding: 0.75rem 1rem;
+    transition: all var(--transition-normal);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.form-enhanced .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    outline: none;
+}
+
+.form-enhanced .form-label {
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Navigation Enhancements */
+.nav-enhanced {
+    background: var(--bg-primary);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    padding: var(--spacing-md) 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-enhanced .nav-link {
+    color: var(--text-secondary);
+    font-weight: 500;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-normal);
+}
+
+.nav-enhanced .nav-link:hover,
+.nav-enhanced .nav-link.active {
+    background: var(--primary-gradient);
+    color: white;
+    transform: translateY(-2px);
+}// Dark Mode Functionality for Prince Panel
+class DarkModeManager {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.createToggleButton();
+        this.loadSavedTheme();
+        this.setupEventListeners();
+    }
+
+    createToggleButton() {
+        // Check if toggle button already exists
+        if (document.querySelector('.dark-mode-toggle')) return;
+
+        const toggle = document.createElement('button');
+        toggle.className = 'dark-mode-toggle';
+        toggle.title = 'Toggle Dark Mode';
+        toggle.innerHTML = '<i class="fas fa-moon" id="darkModeIcon"></i>';
+        toggle.onclick = () => this.toggleDarkMode();
+
+        document.body.appendChild(toggle);
+    }
+
+    toggleDarkMode() {
+        const body = document.body;
+        const icon = document.getElementById('darkModeIcon');
+        
+        if (body.getAttribute('data-theme') === 'dark') {
+            body.removeAttribute('data-theme');
+            if (icon) icon.className = 'fas fa-moon';
+            localStorage.setItem('theme', 'light');
+            this.dispatchThemeChange('light');
+        } else {
+            body.setAttribute('data-theme', 'dark');
+            if (icon) icon.className = 'fas fa-sun';
+            localStorage.setItem('theme', 'dark');
+            this.dispatchThemeChange('dark');
+        }
+    }
+
+    loadSavedTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        const icon = document.getElementById('darkModeIcon');
+        
+        if (savedTheme === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+            if (icon) icon.className = 'fas fa-sun';
+        }
+    }
+
+    dispatchThemeChange(theme) {
+        const event = new CustomEvent('themeChanged', { detail: { theme } });
+        document.dispatchEvent(event);
+    }
+
+    setupEventListeners() {
+        // Listen for system theme changes
+        if (window.matchMedia) {
+            const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+            mediaQuery.addListener(() => {
+                if (!localStorage.getItem('theme')) {
+                    this.applySystemTheme();
+                }
+            });
+        }
+    }
+
+    applySystemTheme() {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const icon = document.getElementById('darkModeIcon');
+        
+        if (prefersDark) {
+            document.body.setAttribute('data-theme', 'dark');
+            if (icon) icon.className = 'fas fa-sun';
+        } else {
+            document.body.removeAttribute('data-theme');
+            if (icon) icon.className = 'fas fa-moon';
+        }
+    }
+}
+
+// Initialize dark mode when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new DarkModeManager();
+});
+
+// Export for manual initialization
+window.DarkModeManager = DarkModeManager;// Enhanced UI Components for Prince Panel
+class EnhancedUI {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.setupLoadingSpinners();
+        this.setupSmoothTransitions();
+        this.setupFormEnhancements();
+        this.setupScrollAnimations();
+        this.setupTooltips();
+    }
+
+    // Loading Spinner System
+    setupLoadingSpinners() {
+        this.createLoadingOverlay();
+        this.enhanceForms();
+        this.enhanceButtons();
+    }
+
+    createLoadingOverlay() {
+        const overlay = document.createElement('div');
+        overlay.id = 'loadingOverlay';
+        overlay.innerHTML = `
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <p>Loading...</p>
+            </div>
+        `;
+        overlay.style.cssText = `
             position: fixed;
             top: 0;
             left: 0;
-            width: var(--sidebar-width);
+            width: 100%;
             height: 100%;
-            background: var(--bg-secondary);
-            border-right: 1px solid var(--border-color);
-            padding: 20px 0 16px 0;
-            display: flex;
-            flex-direction: column;
-            z-index: 100;
-            overflow-y: auto;
-            transition: transform var(--transition);
-        }
-        .sidebar-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 0 22px 28px 22px;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 18px;
-        }
-        .sidebar-brand .logo {
-            font-size: 26px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #a855f7, #7c3aed);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.5px;
-        }
-        .sidebar-brand .badge {
-            font-size: 10px;
-            font-weight: 700;
-            background: var(--accent);
-            color: #fff;
-            padding: 2px 10px;
-            border-radius: 20px;
-            letter-spacing: 0.3px;
-            -webkit-text-fill-color: #fff;
-        }
-        .sidebar-nav {
-            flex: 1;
-            padding: 0 12px;
-        }
-        .sidebar-nav .nav-label {
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: var(--text-muted);
-            padding: 16px 12px 8px 12px;
-            font-weight: 600;
-        }
-        .sidebar-nav a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 14px;
-            border-radius: 10px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all var(--transition);
-            cursor: pointer;
-            margin-bottom: 2px;
-        }
-        .sidebar-nav a i {
-            width: 20px;
-            font-size: 15px;
-            text-align: center;
-            flex-shrink: 0;
-        }
-        .sidebar-nav a:hover {
-            background: var(--bg-card);
-            color: var(--text-primary);
-        }
-        .sidebar-nav a.active {
-            background: var(--accent);
-            color: #fff;
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
-        .sidebar-nav a.active i {
-            color: #fff;
-        }
-        .sidebar-footer {
-            padding: 16px 22px 0 22px;
-            border-top: 1px solid var(--border-color);
-            margin-top: 8px;
-        }
-        .sidebar-footer a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            padding: 8px 0;
-            transition: color var(--transition);
-            cursor: pointer;
-        }
-        .sidebar-footer a:hover {
-            color: var(--danger);
-        }
-        .sidebar-footer a i {
-            width: 20px;
-            text-align: center;
-        }
-
-        /* ─── MAIN ─── */
-        .main {
-            margin-left: var(--sidebar-width);
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        .header {
-            height: var(--header-height);
-            background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-color);
-            padding: 0 32px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-shrink: 0;
-        }
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-        .header-left .hamburger {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             display: none;
-            font-size: 22px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            background: none;
-            border: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: all 0.3s ease;
+        `;
+        
+        const style = document.createElement('style');
+        style.textContent = `
+            .loading-content {
+                text-align: center;
+                color: var(--primary-color, #667eea);
+            }
+            .loading-content p {
+                margin-top: 1rem;
+                font-weight: 600;
+            }
+        `;
+        document.head.appendChild(style);
+        document.body.appendChild(overlay);
+    }
+
+    showLoading(message = 'Loading...') {
+        const overlay = document.getElementById('loadingOverlay');
+        const text = overlay.querySelector('p');
+        if (text) text.textContent = message;
+        overlay.style.display = 'flex';
+    }
+
+    hideLoading() {
+        const overlay = document.getElementById('loadingOverlay');
+        overlay.style.display = 'none';
+    }
+
+    enhanceForms() {
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', (e) => {
+                const submitBtn = form.querySelector('button[type="submit"]');
+                if (submitBtn && !submitBtn.disabled) {
+                    this.showButtonLoading(submitBtn);
+                    this.showLoading('Processing...');
+                }
+            });
+        });
+    }
+
+    enhanceButtons() {
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                if (this.dataset.loading !== 'true') {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                }
+            });
+        });
+    }
+
+    showButtonLoading(button) {
+        if (button.dataset.loading === 'true') return;
+        
+        button.dataset.loading = 'true';
+        button.dataset.originalText = button.innerHTML;
+        button.disabled = true;
+        button.innerHTML = `
+            <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+            Loading...
+        `;
+    }
+
+    hideButtonLoading(button) {
+        if (button.dataset.loading !== 'true') return;
+        
+        button.disabled = false;
+        button.innerHTML = button.dataset.originalText;
+        delete button.dataset.loading;
+        delete button.dataset.originalText;
+    }
+
+    // Smooth Transitions
+    setupSmoothTransitions() {
+        // Page transition
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                document.body.style.transition = 'all 0.6s ease';
+                document.body.style.opacity = '1';
+                document.body.style.transform = 'translateY(0)';
+            }, 100);
+        });
+
+        // Link transitions
+        document.querySelectorAll('a[href]').forEach(link => {
+            if (link.href.includes(window.location.hostname) && !link.href.includes('#')) {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.navigateWithTransition(link.href);
+                });
+            }
+        });
+    }
+
+    navigateWithTransition(url) {
+        document.body.style.transition = 'all 0.3s ease';
+        document.body.style.opacity = '0';
+        document.body.style.transform = 'translateY(-20px)';
+        
+        setTimeout(() => {
+            window.location.href = url;
+        }, 300);
+    }
+
+    // Form Enhancements
+    setupFormEnhancements() {
+        // Floating labels
+        document.querySelectorAll('.form-control').forEach(input => {
+            this.setupFloatingLabel(input);
+        });
+
+        // Real-time validation
+        document.querySelectorAll('input[required]').forEach(input => {
+            this.setupRealTimeValidation(input);
+        });
+    }
+
+    setupFloatingLabel(input) {
+        const wrapper = input.closest('.form-group') || input.parentElement;
+        if (!wrapper.querySelector('.floating-label')) {
+            const label = wrapper.querySelector('label');
+            if (label && input.placeholder) {
+                label.classList.add('floating-label');
+                
+                const updateLabel = () => {
+                    if (input.value || input === document.activeElement) {
+                        label.style.transform = 'translateY(-1.5rem) scale(0.8)';
+                        label.style.color = 'var(--primary-color, #667eea)';
+                    } else {
+                        label.style.transform = '';
+                        label.style.color = '';
+                    }
+                };
+
+                input.addEventListener('focus', updateLabel);
+                input.addEventListener('blur', updateLabel);
+                input.addEventListener('input', updateLabel);
+                updateLabel();
+            }
         }
-        .header-left h2 {
-            font-size: 18px;
-            font-weight: 600;
+    }
+
+    setupRealTimeValidation(input) {
+        const showValidation = (isValid, message = '') => {
+            let feedback = input.parentElement.querySelector('.validation-feedback');
+            if (!feedback) {
+                feedback = document.createElement('div');
+                feedback.className = 'validation-feedback';
+                input.parentElement.appendChild(feedback);
+            }
+
+            if (isValid) {
+                input.style.borderColor = 'var(--success-color, #51cf66)';
+                feedback.style.color = 'var(--success-color, #51cf66)';
+                feedback.textContent = '✓ Valid';
+            } else {
+                input.style.borderColor = 'var(--danger-color, #ff6b6b)';
+                feedback.style.color = 'var(--danger-color, #ff6b6b)';
+                feedback.textContent = message;
+            }
+        };
+
+        input.addEventListener('input', () => {
+            if (input.type === 'email') {
+                const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value);
+                showValidation(isValid, 'Please enter a valid email address');
+            } else if (input.type === 'password') {
+                const isValid = input.value.length >= 6;
+                showValidation(isValid, 'Password must be at least 6 characters');
+            } else if (input.required) {
+                const isValid = input.value.trim().length > 0;
+                showValidation(isValid, 'This field is required');
+            }
+        });
+    }
+
+    // Scroll Animations
+    setupScrollAnimations() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in, .card, .stats-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    }
+
+    // Enhanced Tooltips
+    setupTooltips() {
+        document.querySelectorAll('[title]').forEach(element => {
+            this.createTooltip(element);
+        });
+    }
+
+    createTooltip(element) {
+        const tooltip = document.createElement('div');
+        tooltip.className = 'custom-tooltip';
+        tooltip.textContent = element.title;
+        element.title = ''; // Remove default tooltip
+
+        const style = `
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        `;
+        tooltip.style.cssText = style;
+
+        document.body.appendChild(tooltip);
+
+        element.addEventListener('mouseenter', (e) => {
+            const rect = element.getBoundingClientRect();
+            tooltip.style.top = rect.top - tooltip.offsetHeight - 5 + 'px';
+            tooltip.style.left = rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2) + 'px';
+            tooltip.style.opacity = '1';
+        });
+
+        element.addEventListener('mouseleave', () => {
+            tooltip.style.opacity = '0';
+        });
+    }
+}
+
+// Utility functions
+window.UI = {
+    showNotification: function(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.innerHTML = `
+            <div class="notification-content">
+                <i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'exclamation-triangle' : 'info'}-circle"></i>
+                <span>${message}</span>
+                <button class="notification-close">&times;</button>
+            </div>
+        `;
+        
+        const style = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${type === 'success' ? '#51cf66' : type === 'error' ? '#ff6b6b' : '#74c0fc'};
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            z-index: 10000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            max-width: 300px;
+        `;
+        notification.style.cssText = style;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+        
+        notification.querySelector('.notification-close').addEventListener('click', () => {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => notification.remove(), 300);
+        });
+        
+        setTimeout(() => {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => notification.remove(), 300);
+        }, 5000);
+    }
+};
+
+// Initialize Enhanced UI
+document.addEventListener('DOMContentLoaded', () => {
+    new EnhancedUI();
+});<?php
+// Database configuration
+define('DB_HOST', 'localhost');
+define('DB_USER', 'princeaalyan_gmn');
+define('DB_PASS', 'princeaalyan_gmn');
+define('DB_NAME', 'princeaalyan_gmn');
+
+// Create database connection
+function getDBConnection() {
+    try {
+        $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $pdo;
+    } catch(PDOException $e) {
+        die("Connection failed: " . $e->getMessage());
+    }
+}
+
+// Initialize database tables
+function initializeDatabase() {
+    $pdo = getDBConnection();
+    
+    // Users table
+    $pdo->exec("CREATE TABLE IF NOT EXISTS users (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        username VARCHAR(50) UNIQUE NOT NULL,
+        email VARCHAR(100) UNIQUE NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        balance DECIMAL(10,2) DEFAULT 0.00,
+        role ENUM('admin', 'user') DEFAULT 'user',
+        referral_code VARCHAR(20) UNIQUE,
+        referred_by VARCHAR(20),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )");
+    
+    // Mods table
+    $pdo->exec("CREATE TABLE IF NOT EXISTS mods (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        description TEXT,
+        status ENUM('active', 'inactive') DEFAULT 'active',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )");
+    
+    // License keys table
+    $pdo->exec("CREATE TABLE IF NOT EXISTS license_keys (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        mod_id INT NOT NULL,
+        license_key VARCHAR(100) UNIQUE NOT NULL,
+        duration INT NOT NULL,
+        duration_type ENUM('hours', 'days', 'months') DEFAULT 'days',
+        price DECIMAL(10,2) NOT NULL,
+        status ENUM('available', 'sold') DEFAULT 'available',
+        sold_to INT NULL,
+        sold_at TIMESTAMP NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (mod_id) REFERENCES mods(id) ON DELETE CASCADE,
+        FOREIGN KEY (sold_to) REFERENCES users(id) ON DELETE SET NULL
+    )");
+    
+    // Mod APK files table
+    $pdo->exec("CREATE TABLE IF NOT EXISTS mod_apks (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        mod_id INT NOT NULL,
+        file_name VARCHAR(255) NOT NULL,
+        file_path VARCHAR(500) NOT NULL,
+        file_size INT NOT NULL,
+        uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (mod_id) REFERENCES mods(id) ON DELETE CASCADE
+    )");
+    
+    // Transactions table
+    $pdo->exec("CREATE TABLE IF NOT EXISTS transactions (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT NOT NULL,
+        amount DECIMAL(10,2) NOT NULL,
+        type ENUM('purchase', 'balance_add', 'refund') NOT NULL,
+        reference VARCHAR(100),
+        status ENUM('pending', 'completed', 'failed') DEFAULT 'pending',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    )");
+    
+    // Referral codes table
+    $pdo->exec("CREATE TABLE IF NOT EXISTS referral_codes (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        code VARCHAR(20) UNIQUE NOT NULL,
+        created_by INT NOT NULL,
+        expires_at TIMESTAMP NOT NULL,
+        status ENUM('active', 'inactive') DEFAULT 'active',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE
+    )");
+    
+    // Create default admin user
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE role = 'admin'");
+    $stmt->execute();
+    $adminCount = $stmt->fetchColumn();
+    
+    if ($adminCount == 0) {
+        $adminPassword = password_hash('admin123', PASSWORD_DEFAULT);
+        $stmt = $pdo->prepare("INSERT INTO users (username, email, password, role, balance) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute(['admin', 'admin@example.com', $adminPassword, 'admin', 99999.00]);
+    }
+}
+?><?php
+session_start();
+require_once 'config/database.php';
+
+// Check if user is logged in and session is valid
+function isLoggedIn() {
+    if (!isset($_SESSION['user_id'])) {
+        return false;
+    }
+    
+    // Validate session in database
+    $pdo = getDBConnection();
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM user_sessions WHERE user_id = ? AND session_id = ?");
+    $stmt->execute([$_SESSION['user_id'], session_id()]);
+    $sessionExists = $stmt->fetchColumn();
+    
+    if (!$sessionExists) {
+        // Session not found in database, logout user
+        logout();
+        return false;
+    }
+    
+    return true;
+}
+
+// Check if user is admin
+function isAdmin() {
+    return isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+}
+
+// Redirect to login if not logged in
+function requireLogin() {
+    if (!isLoggedIn()) {
+        header('Location: login.php');
+        exit();
+    }
+}
+
+// Redirect to admin panel if not admin
+function requireAdmin() {
+    requireLogin();
+    if (!isAdmin()) {
+        header('Location: user_dashboard.php');
+        exit();
+    }
+}
+
+// Redirect to user panel if admin tries to access user pages
+function requireUser() {
+    requireLogin();
+    if (isAdmin()) {
+        header('Location: admin_dashboard.php');
+        exit();
+    }
+}
+
+// Login function with one device restriction
+function login($username, $password, $forceLogout = false) {
+    $pdo = getDBConnection();
+    
+    // Clean up expired sessions first
+    cleanupExpiredSessions();
+    
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ? OR email = ?");
+    $stmt->execute([$username, $username]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if ($user && password_verify($password, $user['password'])) {
+        // Check if user is already logged in from another device
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM user_sessions WHERE user_id = ? AND session_id != ?");
+        $stmt->execute([$user['id'], session_id()]);
+        $activeSessions = $stmt->fetchColumn();
+        
+        if ($activeSessions > 0 && !$forceLogout) {
+            // User is already logged in from another device
+            return 'already_logged_in';
+        }
+        
+        // If force logout is requested, logout from all other devices
+        if ($forceLogout && $activeSessions > 0) {
+            $stmt = $pdo->prepare("DELETE FROM user_sessions WHERE user_id = ? AND session_id != ?");
+            $stmt->execute([$user['id'], session_id()]);
+        }
+        
+        // Create new session record
+        $stmt = $pdo->prepare("INSERT INTO user_sessions (user_id, session_id, ip_address, user_agent, created_at) VALUES (?, ?, ?, ?, NOW()) ON DUPLICATE KEY UPDATE session_id = VALUES(session_id), ip_address = VALUES(ip_address), user_agent = VALUES(user_agent), created_at = NOW()");
+        $stmt->execute([$user['id'], session_id(), $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT']]);
+        
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['username'] = $user['username'];
+        $_SESSION['email'] = $user['email'];
+        $_SESSION['role'] = $user['role'];
+        $_SESSION['balance'] = $user['balance'];
+        return true;
+    }
+    return false;
+}
+
+// Register function
+function register($username, $email, $password, $referralCode = null) {
+    $pdo = getDBConnection();
+    
+    // Check if referral code is valid (check both user codes and admin codes)
+    $referredBy = null;
+    $referralType = null;
+    
+    // First check admin-generated referral codes
+    $stmt = $pdo->prepare("SELECT created_by FROM referral_codes WHERE code = ? AND status = 'active' AND expires_at > NOW()");
+    $stmt->execute([$referralCode]);
+    $adminReferral = $stmt->fetchColumn();
+    
+    if ($adminReferral) {
+        $referredBy = $adminReferral;
+        $referralType = 'admin';
+    } else {
+        // Check user-generated referral codes
+        $stmt = $pdo->prepare("SELECT id FROM users WHERE referral_code = ? AND role = 'user'");
+        $stmt->execute([$referralCode]);
+        $referredBy = $stmt->fetchColumn();
+        if ($referredBy) {
+            $referralType = 'user';
+        }
+    }
+    
+    // Generate unique referral code for new user
+    $userReferralCode = strtoupper(substr(md5(uniqid()), 0, 8));
+    
+    try {
+        $pdo->beginTransaction();
+        
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $pdo->prepare("INSERT INTO users (username, email, password, referral_code, referred_by) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([$username, $email, $hashedPassword, $userReferralCode, $referredBy]);
+        
+        $userId = $pdo->lastInsertId();
+        
+        // Deactivate the referral code after use (one-time use only)
+        if ($referralType === 'admin') {
+            // Deactivate admin-generated referral code
+            $stmt = $pdo->prepare("UPDATE referral_codes SET status = 'inactive' WHERE code = ?");
+            $stmt->execute([$referralCode]);
+        } else if ($referralType === 'user') {
+            // For user codes, we'll track usage in a separate table or mark as used
+            // For now, we'll deactivate the user's referral code and generate a new one
+            $newUserReferralCode = strtoupper(substr(md5(uniqid()), 0, 8));
+            $stmt = $pdo->prepare("UPDATE users SET referral_code = ? WHERE id = ?");
+            $stmt->execute([$newUserReferralCode, $referredBy]);
+        }
+        
+        // New user starts with ₹0 balance (no welcome bonus)
+        // Only give bonus to referrer
+        $stmt = $pdo->prepare("UPDATE users SET balance = balance + 50 WHERE id = ?");
+        $stmt->execute([$referredBy]);
+        
+        // Record referral transaction for referrer only
+        try {
+            $stmt = $pdo->prepare("INSERT INTO transactions (user_id, type, amount, description, created_at) VALUES (?, 'balance_add', 50, 'Referral bonus for referring new user', NOW())");
+            $stmt->execute([$referredBy]);
+        } catch (Exception $e) {
+            // Ignore transaction errors
+        }
+        
+        $pdo->commit();
+        return true;
+    } catch (Exception $e) {
+        $pdo->rollBack();
+        return false;
+    }
+}
+
+// Logout function
+function logout() {
+    // Remove session from database
+    if (isset($_SESSION['user_id'])) {
+        $pdo = getDBConnection();
+        $stmt = $pdo->prepare("DELETE FROM user_sessions WHERE user_id = ? AND session_id = ?");
+        $stmt->execute([$_SESSION['user_id'], session_id()]);
+    }
+    
+    session_destroy();
+    header('Location: login.php');
+    exit();
+}
+
+// Force logout from all devices
+function forceLogoutAllDevices($userId) {
+    $pdo = getDBConnection();
+    $stmt = $pdo->prepare("DELETE FROM user_sessions WHERE user_id = ?");
+    $stmt->execute([$userId]);
+}
+
+// Clean up expired sessions (older than 24 hours)
+function cleanupExpiredSessions() {
+    $pdo = getDBConnection();
+    $stmt = $pdo->prepare("DELETE FROM user_sessions WHERE created_at < DATE_SUB(NOW(), INTERVAL 24 HOUR)");
+    $stmt->execute();
+}
+
+// Check if user has active session from another device
+function hasActiveSession($userId) {
+    $pdo = getDBConnection();
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM user_sessions WHERE user_id = ? AND session_id != ?");
+    $stmt->execute([$userId, session_id()]);
+    return $stmt->fetchColumn() > 0;
+}
+
+// Reset device - logout from all devices using username/email
+function resetDevice($username, $password) {
+    $pdo = getDBConnection();
+    
+    // Verify user credentials
+    $stmt = $pdo->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
+    $stmt->execute([$username, $username]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if (!$user) {
+        return 'user_not_found';
+    }
+    
+    // Verify password
+    $stmt = $pdo->prepare("SELECT password FROM users WHERE id = ?");
+    $stmt->execute([$user['id']]);
+    $hashedPassword = $stmt->fetchColumn();
+    
+    if (!password_verify($password, $hashedPassword)) {
+        return 'invalid_password';
+    }
+    
+    // Logout from all devices
+    $stmt = $pdo->prepare("DELETE FROM user_sessions WHERE user_id = ?");
+    $stmt->execute([$user['id']]);
+    
+    return 'success';
+}
+
+// Get user data
+function getUserData($userId = null) {
+    if (!$userId) {
+        $userId = $_SESSION['user_id'];
+    }
+    
+    $pdo = getDBConnection();
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+    $stmt->execute([$userId]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+// Update user balance
+function updateBalance($userId, $amount, $type = 'balance_add', $reference = null) {
+    $pdo = getDBConnection();
+    
+    try {
+        $pdo->beginTransaction();
+        
+        // Update user balance
+        $stmt = $pdo->prepare("UPDATE users SET balance = balance + ? WHERE id = ?");
+        $stmt->execute([$amount, $userId]);
+        
+        // Add transaction record
+        $stmt = $pdo->prepare("INSERT INTO transactions (user_id, amount, type, reference, status) VALUES (?, ?, ?, ?, 'completed')");
+        $stmt->execute([$userId, $amount, $type, $reference]);
+        
+        $pdo->commit();
+        return true;
+    } catch (Exception $e) {
+        $pdo->rollBack();
+        return false;
+    }
+}
+?><?php
+require_once 'config/database.php';
+
+// Generate random license key
+function generateLicenseKey($modName, $duration, $durationType) {
+    $prefix = strtoupper(substr(preg_replace('/[^A-Za-z0-9]/', '', $modName), 0, 8));
+    $suffix = strtoupper(substr(md5(uniqid()), 0, 10));
+    return $prefix . '-' . $duration . $durationType[0] . '-' . $suffix;
+}
+
+// Generate referral code
+function generateReferralCode() {
+    return strtoupper(substr(md5(uniqid()), 0, 8));
+}
+
+// Format currency
+function formatCurrency($amount) {
+    return '₹' . number_format($amount, 2);
+}
+
+// Format date
+function formatDate($date) {
+    return date('d M Y H:i', strtotime($date));
+}
+
+// Get mod statistics
+function getModStats() {
+    $pdo = getDBConnection();
+    
+    $stats = [];
+    
+    // Total mods
+    $stmt = $pdo->query("SELECT COUNT(*) FROM mods");
+    $stats['total_mods'] = $stmt->fetchColumn();
+    
+    // Total license keys
+    $stmt = $pdo->query("SELECT COUNT(*) FROM license_keys");
+    $stats['total_keys'] = $stmt->fetchColumn();
+    
+    // Available keys
+    $stmt = $pdo->query("SELECT COUNT(*) FROM license_keys WHERE status = 'available'");
+    $stats['available_keys'] = $stmt->fetchColumn();
+    
+    // Sold keys
+    $stmt = $pdo->query("SELECT COUNT(*) FROM license_keys WHERE status = 'sold'");
+    $stats['sold_keys'] = $stmt->fetchColumn();
+    
+    // Total users
+    $stmt = $pdo->query("SELECT COUNT(*) FROM users WHERE role = 'user'");
+    $stats['total_users'] = $stmt->fetchColumn();
+    
+    return $stats;
+}
+
+// Get recent mods
+function getRecentMods($limit = 5) {
+    $pdo = getDBConnection();
+    $stmt = $pdo->prepare("SELECT * FROM mods ORDER BY created_at DESC LIMIT ?");
+    $stmt->execute([$limit]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// Get recent users
+function getRecentUsers($limit = 5) {
+    $pdo = getDBConnection();
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE role = 'user' ORDER BY created_at DESC LIMIT ?");
+    $stmt->execute([$limit]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// Get user transactions
+function getUserTransactions($userId, $limit = 50) {
+    $pdo = getDBConnection();
+    $stmt = $pdo->prepare("SELECT * FROM transactions WHERE user_id = ? ORDER BY created_at DESC LIMIT ?");
+    $stmt->execute([$userId, $limit]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// Get all transactions (admin)
+function getAllTransactions($filters = []) {
+    $pdo = getDBConnection();
+    
+    $where = ["1=1"];
+    $params = [];
+    
+    if (!empty($filters['user_id'])) {
+        $where[] = "t.user_id = ?";
+        $params[] = $filters['user_id'];
+    }
+    
+    if (!empty($filters['type'])) {
+        $where[] = "t.type = ?";
+        $params[] = $filters['type'];
+    }
+    
+    if (!empty($filters['status'])) {
+        $where[] = "t.status = ?";
+        $params[] = $filters['status'];
+    }
+    
+    if (!empty($filters['search'])) {
+        $where[] = "(u.username LIKE ? OR t.reference LIKE ?)";
+        $searchTerm = '%' . $filters['search'] . '%';
+        $params[] = $searchTerm;
+        $params[] = $searchTerm;
+    }
+    
+    $sql = "SELECT t.*, u.username FROM transactions t 
+            LEFT JOIN users u ON t.user_id = u.id 
+            WHERE " . implode(' AND ', $where) . " 
+            ORDER BY t.created_at DESC";
+    
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// Get available license keys
+function getAvailableKeys($modId = null) {
+    $pdo = getDBConnection();
+    
+    $where = "lk.status = 'available'";
+    $params = [];
+    
+    if ($modId) {
+        $where .= " AND lk.mod_id = ?";
+        $params[] = $modId;
+    }
+    
+    $sql = "SELECT lk.*, m.name as mod_name 
+            FROM license_keys lk 
+            LEFT JOIN mods m ON lk.mod_id = m.id 
+            WHERE $where 
+            ORDER BY lk.created_at DESC";
+    
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// Purchase license key
+function purchaseLicenseKey($userId, $keyId) {
+    $pdo = getDBConnection();
+    
+    try {
+        $pdo->beginTransaction();
+        
+        // Get key details
+        $stmt = $pdo->prepare("SELECT lk.*, m.name as mod_name FROM license_keys lk 
+                              LEFT JOIN mods m ON lk.mod_id = m.id 
+                              WHERE lk.id = ? AND lk.status = 'available'");
+        $stmt->execute([$keyId]);
+        $key = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if (!$key) {
+            throw new Exception("Key not available");
+        }
+        
+        // Get user balance
+        $stmt = $pdo->prepare("SELECT balance FROM users WHERE id = ?");
+        $stmt->execute([$userId]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($user['balance'] < $key['price']) {
+            throw new Exception("Insufficient balance");
+        }
+        
+        // Update key status
+        $stmt = $pdo->prepare("UPDATE license_keys SET status = 'sold', sold_to = ?, sold_at = NOW() WHERE id = ?");
+        $stmt->execute([$userId, $keyId]);
+        
+        // Deduct balance
+        $stmt = $pdo->prepare("UPDATE users SET balance = balance - ? WHERE id = ?");
+        $stmt->execute([$key['price'], $userId]);
+        
+        // Add transaction
+        $reference = "License purchase #" . $keyId;
+        $stmt = $pdo->prepare("INSERT INTO transactions (user_id, amount, type, reference, status) VALUES (?, ?, 'purchase', ?, 'completed')");
+        $stmt->execute([$userId, -$key['price'], $reference]);
+        
+        $pdo->commit();
+        return $key;
+    } catch (Exception $e) {
+        $pdo->rollBack();
+        throw $e;
+    }
+}
+
+// Upload file
+function uploadFile($file, $uploadDir = 'uploads/') {
+    if (!file_exists($uploadDir)) {
+        mkdir($uploadDir, 0777, true);
+    }
+    
+    $fileName = time() . '_' . basename($file['name']);
+    $targetPath = $uploadDir . $fileName;
+    
+    if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+        return [
+            'success' => true,
+            'file_name' => $fileName,
+            'file_path' => $targetPath,
+            'file_size' => $file['size']
+        ];
+    }
+    
+    return ['success' => false, 'error' => 'Upload failed'];
+}
+?><?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+require_once 'includes/auth.php';
+require_once 'includes/functions.php';
+
+requireAdmin();
+
+// Debug: Check if we reach this point
+if (!isset($_SESSION)) {
+    session_start();
+}
+
+if (!isset($_SESSION['user_id'])) {
+    // If not logged in, redirect instead of showing white screen
+    header('Location: login.php');
+    exit();
+}
+
+$success = '';
+$error = '';
+
+// Get all users for dropdown
+try {
+    $pdo = getDBConnection();
+    $stmt = $pdo->query("SELECT * FROM users WHERE role = 'user' ORDER BY username");
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (Exception $e) {
+    $error = 'Failed to fetch users: ' . $e->getMessage();
+    $users = [];
+}
+
+// Pre-select user if provided in URL
+$selectedUserId = $_GET['user_id'] ?? '';
+
+// Get user statistics for dashboard
+try {
+    if ($pdo) {
+        $stmt = $pdo->query("SELECT 
+            COUNT(*) as total_users,
+            SUM(balance) as total_balance,
+            COUNT(CASE WHEN balance > 0 THEN 1 END) as users_with_balance,
+            AVG(balance) as avg_balance
+            FROM users WHERE role = 'user'");
+        $userStats = $stmt->fetch(PDO::FETCH_ASSOC);
+    } else {
+        $userStats = [
+            'total_users' => 0,
+            'total_balance' => 0,
+            'users_with_balance' => 0,
+            'avg_balance' => 0
+        ];
+    }
+} catch (Exception $e) {
+    $userStats = [
+        'total_users' => 0,
+        'total_balance' => 0,
+        'users_with_balance' => 0,
+        'avg_balance' => 0
+    ];
+}
+
+if ($_POST) {
+    try {
+        $userId = $_POST['user_id'];
+        $amount = (float)$_POST['amount'];
+        $reference = trim($_POST['reference']);
+        
+        if (empty($userId) || $amount <= 0) {
+            $error = 'Please select a user and enter a valid amount';
+        } else {
+            if (updateBalance($userId, $amount, 'balance_add', $reference)) {
+                $success = 'Balance added successfully!';
+                $selectedUserId = $userId; // Keep selected user
+                
+                // Refresh user stats after balance update
+                $stmt = $pdo->query("SELECT 
+                    COUNT(*) as total_users,
+                    SUM(balance) as total_balance,
+                    COUNT(CASE WHEN balance > 0 THEN 1 END) as users_with_balance,
+                    AVG(balance) as avg_balance
+                    FROM users WHERE role = 'user'");
+                $userStats = $stmt->fetch(PDO::FETCH_ASSOC);
+            } else {
+                $error = 'Failed to add balance. Please try again.';
+            }
+        }
+    } catch (Exception $e) {
+        $error = 'An error occurred: ' . $e->getMessage();
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Add User Balance - Multi Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --purple: #8b5cf6;
+            --purple-light: #a78bfa;
+            --purple-dark: #7c3aed;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-light: #e2e8f0;
+            --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #06b6d4;
+        }
+        
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --border-light: #334155;
+        }
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-color);
             color: var(--text-primary);
+            min-height: 100vh;
+            transition: all 0.3s ease;
         }
-        .header-left h2 span {
-            color: var(--text-muted);
-            font-weight: 400;
+        
+        .sidebar {
+            background-color: var(--card-bg);
+            border-right: 1px solid var(--border-light);
+            min-height: 100vh;
+            position: fixed;
+            width: 280px;
+            left: 0;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(0);
         }
-        .header-right {
+        
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+        
+        .sidebar .nav-link {
+            color: var(--text-secondary);
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 2px 16px;
+            transition: all 0.2s ease;
+            text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 16px;
         }
-        .header-right .user-badge {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--bg-card);
-            padding: 6px 16px 6px 12px;
-            border-radius: 40px;
-            border: 1px solid var(--border-color);
+        
+        .sidebar .nav-link:hover {
+            background-color: var(--purple);
+            color: white;
         }
-        .header-right .user-badge .avatar {
-            width: 32px;
-            height: 32px;
+        
+        .sidebar .nav-link.active {
+            background-color: var(--purple);
+            color: white;
+        }
+        
+        .sidebar .nav-link i {
+            width: 20px;
+            margin-right: 12px;
+            font-size: 1em;
+        }
+        
+        .main-content {
+            margin-left: 280px;
+            padding: 2rem;
+            min-height: 100vh;
+            transition: margin-left 0.3s ease;
+        }
+        
+        .main-content.full-width {
+            margin-left: 0;
+        }
+        
+        .mobile-header {
+            display: none;
+            background: var(--card-bg);
+            padding: 1rem;
+            box-shadow: var(--shadow-light);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            border-bottom: 1px solid var(--border-light);
+            backdrop-filter: blur(20px);
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .mobile-toggle {
+            background: linear-gradient(135deg, var(--purple) 0%, var(--purple-dark) 100%);
+            border: none;
+            color: white;
+            padding: 0.75rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow-light);
+            transition: all 0.2s ease;
+        }
+        
+        .mobile-toggle:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .page-header {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-light);
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            background: var(--accent);
+            background: var(--purple);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            font-size: 14px;
-            color: #fff;
-        }
-        .header-right .user-badge .name {
-            font-size: 13px;
+            color: white;
             font-weight: 600;
+            font-size: 1.1em;
         }
-        .header-right .user-badge .role {
-            font-size: 11px;
-            color: var(--text-muted);
-            font-weight: 400;
+        
+        .stats-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-light);
+            border-left: 4px solid;
+            margin-bottom: 1.5rem;
+            transition: transform 0.2s ease;
         }
-
-        .content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 28px 32px 32px 32px;
-        }
-
-        /* ─── PAGE SECTIONS ─── */
-        .page {
-            display: none;
-            animation: fadeUp 0.3s ease;
-        }
-        .page.active {
-            display: block;
-        }
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .page-title {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-        .page-sub {
-            color: var(--text-secondary);
-            font-size: 14px;
-            margin-bottom: 28px;
-        }
-
-        /* ─── STATS CARDS ─── */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 18px;
-            margin-bottom: 32px;
-        }
-        .stat-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius);
-            padding: 20px 24px;
-            transition: all var(--transition);
-        }
-        .stat-card:hover {
-            background: var(--bg-card-hover);
-            border-color: var(--accent);
+        
+        .stats-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(168, 85, 247, 0.08);
         }
-        .stat-card .label {
-            font-size: 13px;
-            color: var(--text-muted);
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
+        
+        .stats-card.total-users { border-left-color: var(--purple); }
+        .stats-card.total-balance { border-left-color: var(--success); }
+        .stats-card.users-with-balance { border-left-color: var(--info); }
+        .stats-card.avg-balance { border-left-color: var(--warning); }
+        
+        .form-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow-light);
         }
-        .stat-card .value {
-            font-size: 32px;
-            font-weight: 800;
-            margin-top: 4px;
-            color: var(--text-primary);
-        }
-        .stat-card .value .accent {
-            color: var(--accent);
-        }
-
-        /* ─── CARDS / PANELS ─── */
-        .panel {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius);
-            padding: 24px 28px;
-            margin-bottom: 24px;
-        }
-        .panel-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .panel-header h3 {
-            font-size: 16px;
-            font-weight: 600;
-        }
-        .panel-header .sub {
-            font-size: 13px;
-            color: var(--text-muted);
-            font-weight: 400;
-        }
-
-        /* ─── BUTTONS ─── */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 22px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: all var(--transition);
-            text-decoration: none;
-            font-family: inherit;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-        }
-        .btn-primary {
-            background: var(--accent);
-            color: #fff;
-            border-color: var(--accent);
-            box-shadow: 0 0 24px var(--accent-glow);
-        }
-        .btn-primary:hover {
-            background: var(--accent-hover);
-            box-shadow: 0 0 36px var(--accent-glow);
-            transform: scale(1.02);
-        }
-        .btn-success {
-            background: #10b981;
-            color: #fff;
-            border-color: #10b981;
-        }
-        .btn-success:hover {
-            background: #34d399;
-            transform: scale(1.02);
-        }
-        .btn-danger {
-            background: #ef4444;
-            color: #fff;
-            border-color: #ef4444;
-        }
-        .btn-danger:hover {
-            background: #f87171;
-            transform: scale(1.02);
-        }
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-        }
-        .btn-outline:hover {
-            background: var(--bg-card-hover);
-            color: var(--text-primary);
-        }
-        .btn-sm {
-            padding: 6px 14px;
-            font-size: 12px;
+        
+        .form-header {
+            background: linear-gradient(135deg, var(--purple) 0%, var(--purple-dark) 100%);
+            color: white;
+            padding: 1.5rem;
             border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
         }
-
-        /* ─── FORM ELEMENTS ─── */
-        .form-group {
-            margin-bottom: 18px;
-        }
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            margin-bottom: 5px;
-        }
-        .form-group .hint {
-            font-size: 12px;
-            color: var(--text-muted);
-            font-weight: 400;
-            margin-top: 3px;
-        }
+        
         .form-control {
-            width: 100%;
-            padding: 11px 16px;
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            padding: 0.75rem 1rem;
+            transition: all 0.2s ease;
             color: var(--text-primary);
-            font-size: 14px;
-            font-family: inherit;
-            transition: border var(--transition);
-            outline: none;
+            background-color: var(--card-bg);
         }
+        
         .form-control:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px var(--accent-glow);
+            border-color: var(--purple);
+            box-shadow: 0 0 0 0.2rem rgba(139, 92, 246, 0.25);
+            background-color: var(--card-bg);
+            color: var(--text-primary);
         }
-        .form-control::placeholder {
-            color: var(--text-muted);
-        }
-        select.form-control {
-            appearance: none;
-            cursor: pointer;
-        }
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 18px;
-        }
-        @media (max-width: 600px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* ─── TABLE ─── */
-        .table-wrap {
-            overflow-x: auto;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-        table th {
-            text-align: left;
-            padding: 12px 12px 12px 0;
-            color: var(--text-muted);
+        
+        .form-label {
             font-weight: 600;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
-            border-bottom: 1px solid var(--border-color);
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
         }
-        table td {
-            padding: 14px 12px 14px 0;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--text-secondary);
+        
+        .btn {
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            padding: 0.75rem 1.5rem;
         }
-        table tr:last-child td {
+        
+        .btn-primary {
+            background-color: var(--purple);
+            border-color: var(--purple);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--purple-dark);
+            border-color: var(--purple-dark);
+            transform: translateY(-1px);
+        }
+        
+        .alert {
+            border-radius: 8px;
+            border: 1px solid;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .alert-success {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-color: var(--success);
+            color: var(--success);
+        }
+        
+        .alert-danger {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+        
+        .user-option {
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .user-option:last-child {
             border-bottom: none;
         }
-        table .highlight {
-            color: var(--text-primary);
-            font-weight: 500;
-        }
-        .status-badge {
-            display: inline-block;
-            padding: 3px 14px;
-            border-radius: 40px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        .status-badge.active {
-            background: rgba(52, 211, 153, 0.15);
-            color: #34d399;
-        }
-        .status-badge.expired {
-            background: rgba(248, 113, 113, 0.15);
-            color: #f87171;
-        }
-        .status-badge.pending {
-            background: rgba(251, 191, 36, 0.15);
-            color: #fbbf24;
-        }
-
-        /* ─── THEME GRID ─── */
-        .theme-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 14px;
-            margin: 16px 0 20px 0;
-        }
-        .theme-card {
-            background: var(--bg-primary);
-            border: 2px solid var(--border-color);
-            border-radius: var(--radius);
-            padding: 16px 18px;
-            cursor: pointer;
-            transition: all var(--transition);
-            text-align: center;
-        }
-        .theme-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
-        .theme-card.selected {
-            border-color: var(--accent);
-            box-shadow: 0 0 24px var(--accent-glow);
-        }
-        .theme-card .swatch {
-            width: 100%;
-            height: 48px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            border: 1px solid var(--border-color);
-        }
-        .theme-card .tname {
-            font-size: 13px;
-            font-weight: 600;
-        }
-        .theme-card .tcode {
-            font-size: 11px;
-            color: var(--text-muted);
-            font-family: monospace;
-        }
-
-        /* ─── PRICING CALCULATOR ─── */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-            gap: 10px;
-            margin: 14px 0 18px 0;
-        }
-        .pricing-option {
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 12px 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all var(--transition);
-        }
-        .pricing-option:hover {
-            border-color: var(--accent);
-            background: var(--bg-card-hover);
-        }
-        .pricing-option.selected {
-            border-color: var(--accent);
-            background: rgba(168, 85, 247, 0.08);
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
-        .pricing-option .dur {
-            font-size: 13px;
-            font-weight: 700;
-        }
-        .pricing-option .price {
-            font-size: 13px;
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        /* ─── REFERRAL CODE ─── */
-        .ref-code {
+        
+        .quick-amounts {
             display: flex;
-            align-items: center;
-            gap: 12px;
-            background: var(--bg-primary);
-            padding: 12px 18px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            font-family: monospace;
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--accent);
-            margin: 8px 0;
+            gap: 0.5rem;
             flex-wrap: wrap;
+            margin-top: 0.5rem;
         }
-        .ref-code .copy-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
+        
+        .quick-amount-btn {
+            padding: 0.25rem 0.75rem;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            background-color: transparent;
+            color: var(--text-secondary);
             cursor: pointer;
-            font-size: 16px;
-            transition: color var(--transition);
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
         }
-        .ref-code .copy-btn:hover {
-            color: var(--text-primary);
+        
+        .quick-amount-btn:hover {
+            background-color: var(--purple);
+            color: white;
+            border-color: var(--purple);
         }
-
-        /* ─── RESPONSIVE ─── */
-        @media (max-width: 1024px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-            .sidebar.open {
-                transform: translateX(0);
-            }
-            .main {
-                margin-left: 0;
-            }
-            .header-left .hamburger {
-                display: block;
-            }
-            .content {
-                padding: 20px 18px 28px 18px;
-            }
-            .header {
-                padding: 0 18px;
-            }
-        }
-        @media (max-width: 600px) {
-            .stats-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .stat-card .value {
-                font-size: 24px;
-            }
-            .header-right .user-badge .name {
-                display: none;
-            }
-            .panel {
-                padding: 18px 16px;
-            }
-            .pricing-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            .theme-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        /* ─── UTILITY ─── */
-        .flex {
-            display: flex;
-        }
-        .flex-center {
-            align-items: center;
-            gap: 12px;
-        }
-        .gap-8 {
-            gap: 8px;
-        }
-        .gap-12 {
-            gap: 12px;
-        }
-        .mt-8 {
-            margin-top: 8px;
-        }
-        .mt-16 {
-            margin-top: 16px;
-        }
-        .mb-8 {
-            margin-bottom: 8px;
-        }
-        .mb-16 {
-            margin-bottom: 16px;
-        }
-        .text-muted {
-            color: var(--text-muted);
-        }
-        .text-accent {
-            color: var(--accent);
-        }
-        .text-center {
-            text-align: center;
-        }
-        .w-full {
-            width: 100%;
-        }
-        .justify-between {
-            justify-content: space-between;
-        }
-
-        /* overlay for mobile */
-        .sidebar-overlay {
+        
+        /* Theme toggle button */
+        .theme-toggle {
             position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 99;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-light);
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Force mobile header visibility on mobile devices */
+        @media screen and (max-width: 768px) {
+            .mobile-header {
+                display: flex !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                width: 100% !important;
+                z-index: 1001 !important;
+                background: var(--card-bg) !important;
+                padding: 1rem !important;
+                box-shadow: var(--shadow-light) !important;
+                border-bottom: 1px solid var(--border-light) !important;
+            }
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                transform: translateX(-100%);
+                background: var(--card-bg);
+                border-right: none;
+                box-shadow: var(--shadow-medium);
+                backdrop-filter: blur(20px);
+                z-index: 1002;
+                pointer-events: none;
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+                pointer-events: auto;
+            }
+            
+            .sidebar .nav-link {
+                pointer-events: auto;
+                position: relative;
+                z-index: 1003;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+                padding-top: 80px; /* Add padding for fixed mobile header */
+            }
+            
+            .mobile-header {
+                display: flex !important;
+                justify-content: space-between;
+                align-items: center;
+                backdrop-filter: blur(20px);
+            }
+            
+            .mobile-toggle {
+                background: var(--gradient-primary);
+                border: none;
+                color: white;
+                padding: 0.75rem;
+                border-radius: 12px;
+                box-shadow: var(--shadow-light);
+                transition: all 0.3s ease;
+                font-size: 1.1rem;
+                min-width: 48px;
+                min-height: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .mobile-toggle:hover {
+                transform: translateY(-2px);
+                box-shadow: var(--shadow-medium);
+            }
+            
+            .mobile-toggle:active {
+                transform: translateY(0) scale(0.95);
+            }
+            
+            .mobile-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                z-index: 1001;
+                pointer-events: none;
+            }
+            
+            .mobile-overlay.show {
+                display: block;
+                pointer-events: auto;
+            }
+        }
+        
+        .mobile-menu-btn {
             display: none;
         }
-        .sidebar-overlay.show {
-            display: block;
-        }
-
-        /* Toast */
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--bg-card);
-            border: 1px solid var(--accent);
-            padding: 14px 24px;
-            border-radius: 12px;
-            color: var(--text-primary);
-            font-weight: 500;
-            font-size: 14px;
-            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
-            z-index: 999;
-            transform: translateY(80px);
-            opacity: 0;
-            transition: all 0.4s ease;
-            pointer-events: none;
-        }
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* key display */
-        .key-display {
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 14px 20px;
-            font-family: monospace;
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--accent);
-            letter-spacing: 0.5px;
-            margin: 12px 0;
-            word-break: break-all;
+        
+        .mobile-overlay {
+            display: none;
         }
     </style>
 </head>
 <body>
-
-    <!-- ─── SIDEBAR OVERLAY ─── -->
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-    <!-- ─── SIDEBAR ─── -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-brand">
-            <span class="logo">PERADOX-VIP</span>
-            <span class="badge">OWNER</span>
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+        <i class="fas fa-sun" id="theme-icon"></i>
+    </div>
+    
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="overlay" onclick="toggleSidebar()"></div>
+    
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <div class="d-flex align-items-center">
+            <button class="mobile-toggle me-3" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h5 class="mb-0"><i class="fas fa-crown me-2" style="color: var(--purple);"></i>Multi Panel</h5>
         </div>
-        <nav class="sidebar-nav">
-            <div class="nav-label">Main</div>
-            <a class="active" data-page="dashboard"><i class="fas fa-th-large"></i> Dashboard</a>
-            <a data-page="generate"><i class="fas fa-key"></i> Generate Keys</a>
-            <a data-page="keymanager"><i class="fas fa-list-ul"></i> Key Manager</a>
-
-            <div class="nav-label">Management</div>
-            <a data-page="users"><i class="fas fa-users"></i> User Management</a>
-            <a data-page="admins"><i class="fas fa-user-shield"></i> Admin Manager</a>
-            <a data-page="permissions"><i class="fas fa-lock"></i> Permission</a>
-            <a data-page="blocked"><i class="fas fa-ban"></i> Blocked Users</a>
-            <a data-page="referrals"><i class="fas fa-gift"></i> Referrals</a>
-
-            <div class="nav-label">System</div>
-            <a data-page="api"><i class="fas fa-shield-alt"></i> API Encryption</a>
-            <a data-page="modloader"><i class="fas fa-cogs"></i> Set Mod/Loader</a>
-            <a data-page="servermod"><i class="fas fa-server"></i> Server & Mod</a>
-            <a data-page="tenant"><i class="fas fa-building"></i> New Tenant</a>
-            <a data-page="telegram"><i class="fab fa-telegram-plane"></i> Telegram Bot</a>
-
-            <div class="nav-label">Settings</div>
-            <a data-page="theme"><i class="fas fa-palette"></i> Theme & Settings</a>
-        </nav>
-        <div class="sidebar-footer">
-            <a id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sign Out / Logout</a>
+        <div class="d-flex align-items-center">
+            <span class="me-2 d-none d-sm-inline"><?php echo htmlspecialchars($_SESSION['username']); ?></span>
+            <div class="user-avatar" style="width: 35px; height: 35px; font-size: 0.9rem;">
+                <?php echo strtoupper(substr($_SESSION['username'], 0, 2)); ?>
+            </div>
         </div>
-    </aside>
-
-    <!-- ─── MAIN ─── -->
-    <div class="main">
-        <!-- HEADER -->
-        <header class="header">
-            <div class="header-left">
-                <button class="hamburger" id="hamburgerBtn"><i class="fas fa-bars"></i></button>
-                <h2 id="pageTitle">Dashboard <span>· overview</span></h2>
-            </div>
-            <div class="header-right">
-                <div class="user-badge">
-                    <div class="avatar">P</div>
-                    <span class="name">peradoxowner</span>
-                    <span class="role">OWNER</span>
+    </div>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 sidebar" id="sidebar">
+                <div class="position-sticky">
+                    <h4 class="text-center py-3 border-bottom" style="border-color: var(--border-light) !important; color: var(--purple); font-weight: 600;">
+                        <i class="fas fa-shield-alt me-2"></i>Multi Panel
+                    </h4>
+                <nav class="nav flex-column p-3">
+                    <a class="nav-link" href="admin_dashboard.php">
+                        <i class="fas fa-tachometer-alt"></i>Dashboard
+                    </a>
+                    <a class="nav-link" href="add_mod.php">
+                        <i class="fas fa-plus"></i>Add Mod Name
+                    </a>
+                    <a class="nav-link" href="manage_mods.php">
+                        <i class="fas fa-edit"></i>Manage Mods
+                    </a>
+                    <a class="nav-link" href="upload_mod.php">
+                        <i class="fas fa-upload"></i>Upload Mod APK
+                    </a>
+                    <a class="nav-link" href="mod_list.php">
+                        <i class="fas fa-list"></i>Mod APK List
+                    </a>
+                    <a class="nav-link" href="add_license.php">
+                        <i class="fas fa-key"></i>Add License Key
+                    </a>
+                    <a class="nav-link" href="licence_key_list.php">
+                        <i class="fas fa-key"></i>License Key List
+                    </a>
+                    <a class="nav-link" href="available_keys.php">
+                        <i class="fas fa-key"></i>Available Keys
+                    </a>
+                    <a class="nav-link" href="manage_users.php">
+                        <i class="fas fa-users"></i>Manage Users
+                    </a>
+                    <a class="nav-link active" href="add_balance.php">
+                        <i class="fas fa-wallet"></i>Add Balance
+                    </a>
+                    <a class="nav-link" href="transactions.php">
+                        <i class="fas fa-exchange-alt"></i>Transaction
+                    </a>
+                    <a class="nav-link" href="referral_codes.php">
+                        <i class="fas fa-tag"></i>Referral Code
+                    </a>
+                    <a class="nav-link" href="settings.php">
+                        <i class="fas fa-cog"></i>Settings
+                    </a>
+                    <a class="nav-link" href="logout.php">
+                        <i class="fas fa-sign-out-alt"></i>Logout
+                    </a>
+                </nav>
                 </div>
             </div>
-        </header>
-
-        <!-- CONTENT -->
-        <div class="content" id="contentArea">
-
-            <!-- ===================== DASHBOARD ===================== -->
-            <section class="page active" id="page-dashboard">
-                <div class="page-title">Welcome back, <span class="text-accent">peradoxowner! 🥳</span></div>
-                <div class="page-sub">PERADOX-VIP Owner Panel is active and running smoothly.</div>
-
-                <div class="stats-grid" id="statsGrid">
-                    <div class="stat-card">
-                        <div class="label">Total Keys</div>
-                        <div class="value" id="statTotalKeys">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="label">Active Licenses</div>
-                        <div class="value" id="statActiveLicenses">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="label">Total Users &amp; Admins</div>
-                        <div class="value" id="statTotalUsers">1</div>
-                    </div>
-                </div>
-
-                <div class="panel">
-                    <div class="panel-header">
-                        <h3>Quick Actions</h3>
-                    </div>
-                    <div class="flex flex-center gap-12" style="flex-wrap:wrap;">
-                        <button class="btn btn-primary" onclick="navigateTo('generate')"><i class="fas fa-plus"></i> Generate Key</button>
-                        <button class="btn btn-outline" onclick="navigateTo('keymanager')"><i class="fas fa-list-ul"></i> Manage Keys</button>
-                        <button class="btn btn-outline" onclick="navigateTo('users')"><i class="fas fa-users"></i> Manage Users</button>
-                    </div>
-                </div>
-
-                <div class="panel">
-                    <div class="panel-header">
-                        <h3>System Status</h3>
-                        <span class="sub"><i class="fas fa-circle" style="color:#34d399;font-size:10px;"></i> All systems operational</span>
-                    </div>
-                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;">
-                        <div><span class="text-muted">Panel Version</span><br><strong>v2.4.1</strong></div>
-                        <div><span class="text-muted">Environment</span><br><strong>Production</strong></div>
-                        <div><span class="text-muted">API Status</span><br><strong style="color:#34d399;">● Online</strong></div>
-                        <div><span class="text-muted">Uptime</span><br><strong>99.98%</strong></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===================== GENERATE KEYS ===================== -->
-            <section class="page" id="page-generate">
-                <div class="page-title">Generate Keys</div>
-                <div class="page-sub">Create new license keys with custom duration and device limits.</div>
-
-                <div class="panel">
-                    <div class="panel-header">
-                        <h3>Pricing Calculator</h3>
-                    </div>
-                    <div class="pricing-grid" id="pricingGrid">
-                        <div class="pricing-option" data-dur="2H" data-price="10"><span class="dur">2H</span><br><span class="price">10 Rs</span></div>
-                        <div class="pricing-option selected" data-dur="1D" data-price="80"><span class="dur">1D</span><br><span class="price">80 Rs</span></div>
-                        <div class="pricing-option" data-dur="3D" data-price="150"><span class="dur">3D</span><br><span class="price">150 Rs</span></div>
-                        <div class="pricing-option" data-dur="7D" data-price="250"><span class="dur">7D</span><br><span class="price">250 Rs</span></div>
-                        <div class="pricing-option" data-dur="15D" data-price="350"><span class="dur">15D</span><br><span class="price">350 Rs</span></div>
-                        <div class="pricing-option" data-dur="30D" data-price="500"><span class="dur">30D</span><br><span class="price">500 Rs</span></div>
-                        <div class="pricing-option" data-dur="60D" data-price="900"><span class="dur">60D</span><br><span class="price">900 Rs</span></div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Custom Key <span class="hint">(Leave blank for 1-Click Random)</span></label>
-                        <input class="form-control" id="customKeyInput" placeholder="E.G. PERADOX-SPECIAL" />
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Select Duration</label>
-                            <select class="form-control" id="durationSelect">
-                                <option value="2H">2 Hours (10 Rs)</option>
-                                <option value="1D" selected>1 Day (80 Rs)</option>
-                                <option value="3D">3 Days (150 Rs)</option>
-                                <option value="7D">7 Days (250 Rs)</option>
-                                <option value="15D">15 Days (350 Rs)</option>
-                                <option value="30D">30 Days (500 Rs)</option>
-                                <option value="60D">60 Days (900 Rs)</option>
-                            </select>
+            
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 main-content">
+                <div class="page-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h2 class="mb-2"><i class="fas fa-wallet me-2" style="color: var(--purple);"></i>Add User Balance</h2>
+                            <p class="mb-0" style="color: var(--text-secondary);">Add balance to user accounts for transactions</p>
                         </div>
-                        <div class="form-group">
-                            <label>Device Limit (HWID Lock)</label>
-                            <input class="form-control" id="deviceLimitInput" type="number" value="1" min="1" max="5" />
-                        </div>
-                    </div>
-
-                    <div class="flex flex-center gap-12" style="flex-wrap:wrap;margin-top:6px;">
-                        <button class="btn btn-primary" id="randomKeyBtn"><i class="fas fa-random"></i> 1-Click Random Key</button>
-                        <button class="btn btn-success" id="generateKeyBtn"><i class="fas fa-plus-circle"></i> Generate Key</button>
-                    </div>
-
-                    <div id="generatedKeyDisplay" style="display:none;" class="mt-16">
-                        <div class="key-display" id="generatedKeyText">PERADOX-XXXXX-XXXXX</div>
-                        <div class="flex flex-center gap-8">
-                            <span class="text-muted" id="genKeyMeta">Duration: 1D · Devices: 1</span>
-                            <button class="btn btn-sm btn-outline" onclick="copyGeneratedKey()"><i class="fas fa-copy"></i> Copy</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===================== KEY MANAGER ===================== -->
-            <section class="page" id="page-keymanager">
-                <div class="page-title">Key Manager</div>
-                <div class="page-sub">Confirm and monitor your user keys securely.</div>
-
-                <div class="panel">
-                    <div class="panel-header">
-                        <h3>License Manager</h3>
-                        <button class="btn btn-primary btn-sm" onclick="navigateTo('generate')"><i class="fas fa-plus"></i> Generate Key</button>
-                    </div>
-                    <div class="table-wrap">
-                        <table>
-                            <thead><tr><th>Key</th><th>Duration</th><th>Devices</th><th>Status</th></tr></thead>
-                            <tbody id="keyManagerTable">
-                                <tr><td colspan="4" class="text-muted text-center" style="padding:24px 0;">No keys generated yet.</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===================== USER MANAGEMENT ===================== -->
-            <section class="page" id="page-users">
-                <div class="page-title">User Management 🏠</div>
-                <div class="page-sub">Manage accounts, change reseller roles, and track activity.</div>
-
-                <div class="panel">
-                    <div class="panel-header">
-                        <h3>All Users</h3>
-                        <button class="btn btn-primary btn-sm" id="addUserBtn"><i class="fas fa-user-plus"></i> Add User</button>
-                    </div>
-                    <div class="table-wrap">
-                        <table>
-                            <thead><tr><th>User</th><th>Email</th><th>Role</th><th>Actions</th></tr></thead>
-                            <tbody id="userTableBody">
-                                <tr>
-                                    <td><strong class="highlight">peradoxowner</strong><br><span class="text-muted" style="font-size:12px;">Ref: PERADOXVIP</span></td>
-                                    <td>owner@peradox.vip</td>
-                                    <td><span class="status-badge active">OWNER</span></td>
-                                    <td><button class="btn btn-sm btn-outline" disabled><i class="fas fa-edit"></i></button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===================== ADMIN MANAGER ===================== -->
-            <section class="page" id="page-admins">
-                <div class="page-title">Admin Manager</div>
-                <div class="page-sub">Manage administrator accounts and permissions.</div>
-                <div class="panel">
-                    <div class="panel-header"><h3>Admins</h3><button class="btn btn-primary btn-sm" id="addAdminBtn"><i class="fas fa-user-plus"></i> Add Admin</button></div>
-                    <div class="table-wrap">
-                        <table>
-                            <thead><tr><th>Username</th><th>Email</th><th>Role</th><th>Status</th></tr></thead>
-                            <tbody id="adminTableBody">
-                                <tr><td><strong class="highlight">peradoxowner</strong></td><td>owner@peradox.vip</td><td><span class="status-badge active">Super Admin</span></td><td><span class="status-badge active">Active</span></td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===================== PERMISSIONS ===================== -->
-            <section class="page" id="page-permissions">
-                <div class="page-title">Permission Management</div>
-                <div class="page-sub">Configure role-based access controls.</div>
-                <div class="panel">
-                    <div class="panel-header"><h3>Role Permissions</h3></div>
-                    <div class="table-wrap">
-                        <table>
-                            <thead><tr><th>Role</th><th>Manage Keys</th><th>Manage Users</th><th>System Settings</th><th>View Logs</th></tr></thead>
-                            <tbody>
-                                <tr><td><strong>Owner</strong></td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
-                                <tr><td><strong>Admin</strong></td><td>✅</td><td>✅</td><td>❌</td><td>✅</td></tr>
-                                <tr><td><strong>Reseller</strong></td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===================== BLOCKED USERS ===================== -->
-            <section class="page" id="page-blocked">
-                <div class="page-title">Blocked Users</div>
-                <div class="page-sub">View and manage blocked accounts.</div>
-                <div class="panel">
-                    <div class="panel-header"><h3>Blocked List</h3></div>
-                    <div class="table-wrap">
-                        <table>
-                            <thead><tr><th>Username</th><th>Reason</th><th>Blocked At</th><th>Action</th></tr></thead>
-                            <tbody id="blockedTableBody">
-                                <tr><td colspan="4" class="text-muted text-center" style="padding:24px 0;">No blocked users.</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===================== REFERRALS ===================== -->
-            <section class="page" id="page-referrals">
-                <div class="page-title">Create VIP Referral Code <span class="text-muted" style="font-size:14px;font-weight:400;">(Owner Only)</span></div>
-                <div class="page-sub">Generate and manage referral codes for your users.</div>
-
-                <div class="panel">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Referral Code</label>
-                            <input class="form-control" id="refCodeInput" placeholder="E.G. PERADOX-SPECIAL" />
-                        </div>
-                        <div class="form-group">
-                            <label>Usage Limit</label>
-                            <input class="form-control" id="refLimitInput" type="number" value="1" min="1" max="999" />
-                        </div>
-                    </div>
-                    <button class="btn btn-primary" id="createRefBtn"><i class="fas fa-plus-circle"></i> Create Code</button>
-
-                    <div id="refCreatedDisplay" style="display:none;" class="mt-16">
-                        <div class="ref-code" id="refCodeDisplay">PERADOX-ABCDE</div>
-                    </div>
-                </div>
-
-                <div class="panel">
-                    <div class="panel-header"><h3>Active System Referral Codes</h3></div>
-                    <div class="table-wrap">
-                        <table>
-                            <thead><tr><th>Referral Code</th><th>Usage Limit</th><th>Times Used</th><th>Created By</th></tr></thead>
-                            <tbody id="refTableBody">
-                                <tr><td>PERADOX-VIP</td><td>Unlimited</td><td>0</td><td>peradoxowner</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===================== API ENCRYPTION ===================== -->
-            <section class="page" id="page-api">
-                <div class="page-title">API Encryption</div>
-                <div class="page-sub">Manage API keys and encryption settings.</div>
-                <div class="panel">
-                    <div class="form-group">
-                        <label>API Key</label>
-                        <input class="form-control" id="apiKeyInput" value="pk_live_PERADOX_8x9k2m4n6p8q" />
-                    </div>
-                    <div class="form-group">
-                        <label>Encryption Secret</label>
-                        <input class="form-control" id="apiSecretInput" type="password" value="••••••••••••••••••••" />
-                    </div>
-                    <button class="btn btn-primary" id="saveApiBtn"><i class="fas fa-save"></i> Save Settings</button>
-                </div>
-            </section>
-
-            <!-- ===================== SET MOD/LOADER ===================== -->
-            <section class="page" id="page-modloader">
-                <div class="page-title">Set Mod / Loader</div>
-                <div class="page-sub">Configure the default mod and loader settings.</div>
-                <div class="panel">
-                    <div class="form-group">
-                        <label>Mod Version</label>
-                        <select class="form-control" id="modVersionSelect">
-                            <option>v3.2.1</option>
-                            <option selected>v3.3.0</option>
-                            <option>v3.4.0-beta</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Loader Type</label>
-                        <select class="form-control" id="loaderTypeSelect">
-                            <option selected>Standard Loader</option>
-                            <option>Secure Loader</option>
-                            <option>Legacy Loader</option>
-                        </select>
-                    </div>
-                    <button class="btn btn-primary" id="saveModLoaderBtn"><i class="fas fa-save"></i> Save Configuration</button>
-                </div>
-            </section>
-
-            <!-- ===================== SERVER & MOD ===================== -->
-            <section class="page" id="page-servermod">
-                <div class="page-title">Server &amp; Mod</div>
-                <div class="page-sub">Monitor server status and mod configurations.</div>
-                <div class="panel">
-                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
-                        <div><span class="text-muted">Server Status</span><br><strong style="color:#34d399;">● Online</strong></div>
-                        <div><span class="text-muted">Active Mod</span><br><strong>PERADOX-Core v3.3.0</strong></div>
-                        <div><span class="text-muted">Loader</span><br><strong>Standard Loader</strong></div>
-                        <div><span class="text-muted">Uptime</span><br><strong>14d 7h 32m</strong></div>
-                    </div>
-                    <hr style="border-color:var(--border-color);margin:18px 0;" />
-                    <div class="flex flex-center gap-12" style="flex-wrap:wrap;">
-                        <button class="btn btn-outline"><i class="fas fa-sync-alt"></i> Restart Server</button>
-                        <button class="btn btn-outline"><i class="fas fa-download"></i> Update Mod</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===================== NEW TENANT ===================== -->
-            <section class="page" id="page-tenant">
-                <div class="page-title">New Tenant</div>
-                <div class="page-sub">Create a new tenant instance for multi-tenant support.</div>
-                <div class="panel">
-                    <div class="form-group"><label>Tenant Name</label><input class="form-control" id="tenantNameInput" placeholder="My Tenant" /></div>
-                    <div class="form-group"><label>Domain</label><input class="form-control" id="tenantDomainInput" placeholder="tenant.peradox.vip" /></div>
-                    <div class="form-group"><label>Owner Email</label><input class="form-control" id="tenantEmailInput" type="email" placeholder="owner@tenant.com" /></div>
-                    <button class="btn btn-primary" id="createTenantBtn"><i class="fas fa-building"></i> Create Tenant</button>
-                </div>
-            </section>
-
-            <!-- ===================== TELEGRAM BOT ===================== -->
-            <section class="page" id="page-telegram">
-                <div class="page-title">Telegram Bot</div>
-                <div class="page-sub">Configure your Telegram bot integration.</div>
-                <div class="panel">
-                    <div class="form-group"><label>Bot Token</label><input class="form-control" id="tgTokenInput" placeholder="123456:ABC-DEF" /></div>
-                    <div class="form-group"><label>Chat ID</label><input class="form-control" id="tgChatIdInput" placeholder="-100123456789" /></div>
-                    <div class="form-group">
-                        <label>Notifications</label>
-                        <select class="form-control" id="tgNotifySelect">
-                            <option selected>All Events</option>
-                            <option>Key Events Only</option>
-                            <option>User Events Only</option>
-                            <option>Disabled</option>
-                        </select>
-                    </div>
-                    <button class="btn btn-primary" id="saveTgBtn"><i class="fas fa-save"></i> Save Bot Settings</button>
-                </div>
-            </section>
-
-            <!-- ===================== THEME & SETTINGS ===================== -->
-            <section class="page" id="page-theme">
-                <div class="page-title">Theme &amp; Settings</div>
-                <div class="page-sub">Choose your preferred UI theme.</div>
-
-                <div class="panel">
-                    <div class="panel-header"><h3>Select Theme</h3></div>
-                    <div class="theme-grid" id="themeGrid">
-                        <div class="theme-card selected" data-theme="neon-purple">
-                            <div class="swatch" style="background:linear-gradient(135deg,#0b0a12,#2d1b69);"></div>
-                            <div class="tname">Neon Cyber Violet</div>
-                            <div class="tcode">neon-purple</div>
-                        </div>
-                        <div class="theme-card" data-theme="blood-red">
-                            <div class="swatch" style="background:linear-gradient(135deg,#0b0a12,#691b1b);"></div>
-                            <div class="tname">Blood Crimson Dark</div>
-                            <div class="tcode">blood-red</div>
-                        </div>
-                        <div class="theme-card" data-theme="emerald-matrix">
-                            <div class="swatch" style="background:linear-gradient(135deg,#0b0a12,#1b692b);"></div>
-                            <div class="tname">Matrix Terminal Hacker</div>
-                            <div class="tcode">emerald-matrix</div>
-                        </div>
-                        <div class="theme-card" data-theme="gold-luxury">
-                            <div class="swatch" style="background:linear-gradient(135deg,#0b0a12,#69581b);"></div>
-                            <div class="tname">Royal Gold VIP</div>
-                            <div class="tcode">gold-luxury</div>
-                        </div>
-                        <div class="theme-card" data-theme="synthwave-80s">
-                            <div class="swatch" style="background:linear-gradient(135deg,#0b0a12,#691b69);"></div>
-                            <div class="tname">80s Synthwave Retro</div>
-                            <div class="tcode">synthwave-80s</div>
-                        </div>
-                        <div class="theme-card" data-theme="obsidian-dark">
-                            <div class="swatch" style="background:linear-gradient(135deg,#0b0a12,#1a1a1a);"></div>
-                            <div class="tname">Obsidian AMOLED Black</div>
-                            <div class="tcode">obsidian-dark</div>
-                        </div>
-                        <div class="theme-card" data-theme="tokyo-night">
-                            <div class="swatch" style="background:linear-gradient(135deg,#0b0a12,#1b2b69);"></div>
-                            <div class="tname">Tokyo Nightfall Neon</div>
-                            <div class="tcode">tokyo-night</div>
-                        </div>
-                        <div class="theme-card" data-theme="nordic-frost">
-                            <div class="swatch" style="background:linear-gradient(135deg,#0b0a12,#2b4a5a);"></div>
-                            <div class="tname">Nordic Polar Ice</div>
-                            <div class="tcode">nordic-frost</div>
-                        </div>
-                    </div>
-                    <button class="btn btn-primary" id="applyThemeBtn"><i class="fas fa-check"></i> Save &amp; Apply Selected UI Theme</button>
-                    <div style="margin-top:18px;font-size:13px;color:var(--text-muted);text-align:center;border-top:1px solid var(--border-color);padding-top:18px;">
-                        MADE BY PERADOX ● ALL RIGHTS RESERVED
-                    </div>
-                </div>
-            </section>
-
-        </div><!-- /content -->
-    </div><!-- /main -->
-
-    <!-- ─── TOAST ─── -->
-    <div class="toast" id="toast"></div>
-
-    <script>
-        // ───────────────────────────────────────────────
-        //  DATA STORE
-        // ───────────────────────────────────────────────
-        const store = {
-            keys: JSON.parse(localStorage.getItem('peradox_keys')) || [],
-            users: JSON.parse(localStorage.getItem('peradox_users')) || [
-                { username: 'peradoxowner', email: 'owner@peradox.vip', role: 'OWNER', ref: 'PERADOXVIP' }
-            ],
-            admins: JSON.parse(localStorage.getItem('peradox_admins')) || [
-                { username: 'peradoxowner', email: 'owner@peradox.vip', role: 'Super Admin', status: 'Active' }
-            ],
-            blocked: JSON.parse(localStorage.getItem('peradox_blocked')) || [],
-            referrals: JSON.parse(localStorage.getItem('peradox_referrals')) || [
-                { code: 'PERADOX-VIP', limit: 'Unlimited', used: 0, createdBy: 'peradoxowner' }
-            ],
-            themes: JSON.parse(localStorage.getItem('peradox_theme')) || 'neon-purple',
-            apiKey: localStorage.getItem('peradox_apiKey') || 'pk_live_PERADOX_8x9k2m4n6p8q',
-            apiSecret: localStorage.getItem('peradox_apiSecret') || '••••••••••••••••••••',
-            modVersion: localStorage.getItem('peradox_modVersion') || 'v3.3.0',
-            loaderType: localStorage.getItem('peradox_loaderType') || 'Standard Loader',
-            tgToken: localStorage.getItem('peradox_tgToken') || '',
-            tgChatId: localStorage.getItem('peradox_tgChatId') || '',
-            tgNotify: localStorage.getItem('peradox_tgNotify') || 'All Events',
-        };
-
-        function saveStore() {
-            localStorage.setItem('peradox_keys', JSON.stringify(store.keys));
-            localStorage.setItem('peradox_users', JSON.stringify(store.users));
-            localStorage.setItem('peradox_admins', JSON.stringify(store.admins));
-            localStorage.setItem('peradox_blocked', JSON.stringify(store.blocked));
-            localStorage.setItem('peradox_referrals', JSON.stringify(store.referrals));
-            localStorage.setItem('peradox_theme', store.themes);
-            localStorage.setItem('peradox_apiKey', store.apiKey);
-            localStorage.setItem('peradox_apiSecret', store.apiSecret);
-            localStorage.setItem('peradox_modVersion', store.modVersion);
-            localStorage.setItem('peradox_loaderType', store.loaderType);
-            localStorage.setItem('peradox_tgToken', store.tgToken);
-            localStorage.setItem('peradox_tgChatId', store.tgChatId);
-            localStorage.setItem('peradox_tgNotify', store.tgNotify);
-        }
-
-        // ───────────────────────────────────────────────
-        //  HELPERS
-        // ───────────────────────────────────────────────
-        function generateKey(prefix = 'PERADOX') {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            const r = (n) => Array.from({ length: n }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
-            return `${prefix}-${r(5)}-${r(5)}`;
-        }
-
-        function toast(msg, duration = 3000) {
-            const el = document.getElementById('toast');
-            el.textContent = msg;
-            el.classList.add('show');
-            clearTimeout(el._timeout);
-            el._timeout = setTimeout(() => el.classList.remove('show'), duration);
-        }
-
-        function navigateTo(page) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            const target = document.getElementById('page-' + page);
-            if (target) target.classList.add('active');
-            document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
-            document.querySelector(`.sidebar-nav a[data-page="${page}"]`)?.classList.add('active');
-            const titles = {
-                dashboard: 'Dashboard <span>· overview</span>',
-                generate: 'Generate Keys <span>· create licenses</span>',
-                keymanager: 'Key Manager <span>· monitor licenses</span>',
-                users: 'User Management <span>· accounts</span>',
-                admins: 'Admin Manager <span>· administrators</span>',
-                permissions: 'Permission Management <span>· access control</span>',
-                blocked: 'Blocked Users <span>· banned accounts</span>',
-                referrals: 'Referrals <span>· referral codes</span>',
-                api: 'API Encryption <span>· security</span>',
-                modloader: 'Set Mod/Loader <span>· configuration</span>',
-                servermod: 'Server & Mod <span>· status</span>',
-                tenant: 'New Tenant <span>· multi-tenant</span>',
-                telegram: 'Telegram Bot <span>· integration</span>',
-                theme: 'Theme & Settings <span>· appearance</span>',
-            };
-            document.getElementById('pageTitle').innerHTML = titles[page] || 'PERADOX-VIP';
-            if (window.innerWidth <= 1024) {
-                document.getElementById('sidebar').classList.remove('open');
-                document.getElementById('sidebarOverlay').classList.remove('show');
-            }
-            // refresh dynamic content
-            if (page === 'dashboard') updateDashboardStats();
-            if (page === 'keymanager') renderKeyManager();
-            if (page === 'users') renderUsers();
-            if (page === 'admins') renderAdmins();
-            if (page === 'blocked') renderBlocked();
-            if (page === 'referrals') renderReferrals();
-        }
-
-        // ───────────────────────────────────────────────
-        //  DASHBOARD
-        // ───────────────────────────────────────────────
-        function updateDashboardStats() {
-            const total = store.keys.length;
-            const active = store.keys.filter(k => k.status === 'Active').length;
-            document.getElementById('statTotalKeys').textContent = total;
-            document.getElementById('statActiveLicenses').textContent = active;
-            document.getElementById('statTotalUsers').textContent = store.users.length + store.admins.length;
-        }
-
-        // ───────────────────────────────────────────────
-        //  KEY MANAGER
-        // ───────────────────────────────────────────────
-        function renderKeyManager() {
-            const tbody = document.getElementById('keyManagerTable');
-            if (store.keys.length === 0) {
-                tbody.innerHTML =
-                    `<tr><td colspan="4" class="text-muted text-center" style="padding:24px 0;">No keys generated yet.</td></tr>`;
-                return;
-            }
-            tbody.innerHTML = store.keys.map(k => `
-                <tr>
-                    <td><strong class="highlight">${k.key}</strong></td>
-                    <td>${k.duration}</td>
-                    <td>${k.devicesUsed || 0} / ${k.deviceLimit}</td>
-                    <td><span class="status-badge ${k.status === 'Active' ? 'active' : 'expired'}">${k.status}</span></td>
-                </tr>
-            `).join('');
-        }
-
-        // ───────────────────────────────────────────────
-        //  USERS
-        // ───────────────────────────────────────────────
-        function renderUsers() {
-            const tbody = document.getElementById('userTableBody');
-            tbody.innerHTML = store.users.map(u => `
-                <tr>
-                    <td><strong class="highlight">${u.username}</strong><br><span class="text-muted" style="font-size:12px;">Ref: ${u.ref || '—'}</span></td>
-                    <td>${u.email}</td>
-                    <td><span class="status-badge ${u.role === 'OWNER' ? 'active' : 'pending'}">${u.role}</span></td>
-                    <td>${u.role === 'OWNER' ? '<button class="btn btn-sm btn-outline" disabled><i class="fas fa-edit"></i></button>' : '<button class="btn btn-sm btn-outline"><i class="fas fa-edit"></i></button> <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>'}</td>
-                </tr>
-            `).join('');
-        }
-
-        // ───────────────────────────────────────────────
-        //  ADMINS
-        // ───────────────────────────────────────────────
-        function renderAdmins() {
-            const tbody = document.getElementById('adminTableBody');
-            tbody.innerHTML = store.admins.map(a => `
-                <tr>
-                    <td><strong class="highlight">${a.username}</strong></td>
-                    <td>${a.email}</td>
-                    <td><span class="status-badge active">${a.role}</span></td>
-                    <td><span class="status-badge ${a.status === 'Active' ? 'active' : 'expired'}">${a.status}</span></td>
-                </tr>
-            `).join('');
-        }
-
-        // ───────────────────────────────────────────────
-        //  BLOCKED
-        // ───────────────────────────────────────────────
-        function renderBlocked() {
-            const tbody = document.getElementById('blockedTableBody');
-            if (store.blocked.length === 0) {
-                tbody.innerHTML =
-                    `<tr><td colspan="4" class="text-muted text-center" style="padding:24px 0;">No blocked users.</td></tr>`;
-                return;
-            }
-            tbody.innerHTML = store.blocked.map(b => `
-                <tr>
-                    <td><strong>${b.username}</strong></td>
-                    <td>${b.reason}</td>
-                    <td>${b.blockedAt}</td>
-                    <td><button class="btn btn-sm btn-success" onclick="unblockUser('${b.username}')"><i class="fas fa-unlock"></i></button></td>
-                </tr>
-            `).join('');
-        }
-
-        function unblockUser(username) {
-            store.blocked = store.blocked.filter(b => b.username !== username);
-            saveStore();
-            renderBlocked();
-            toast(`Unblocked ${username}`);
-        }
-
-        // ───────────────────────────────────────────────
-        //  REFERRALS
-        // ───────────────────────────────────────────────
-        function renderReferrals() {
-            const tbody = document.getElementById('refTableBody');
-            tbody.innerHTML = store.referrals.map(r => `
-                <tr>
-                    <td><strong class="highlight">${r.code}</strong></td>
-                    <td>${r.limit}</td>
-                    <td>${r.used}</td>
-                    <td>${r.createdBy}</td>
-                </tr>
-            `).join('');
-        }
-
-        // ───────────────────────────────────────────────
-        //  GENERATE KEY
-        // ───────────────────────────────────────────────
-        function generateNewKey(customKey = null) {
-            const durSelect = document.getElementById('durationSelect');
-            const duration = durSelect.value;
-            const deviceLimit = parseInt(document.getElementById('deviceLimitInput').value) || 1;
-            const key = customKey || generateKey('PERADOX');
-
-            // check if key already exists
-            if (store.keys.some(k => k.key === key)) {
-                toast('Key already exists! Try again.');
-                return null;
-            }
-
-            const entry = {
-                key,
-                duration,
-                deviceLimit,
-                devicesUsed: 0,
-                status: 'Active',
-                createdAt: new Date().toISOString(),
-            };
-            store.keys.push(entry);
-            saveStore();
-            updateDashboardStats();
-            renderKeyManager();
-            return entry;
-        }
-
-        // ───────────────────────────────────────────────
-        //  THEME APPLICATION
-        // ───────────────────────────────────────────────
-        function applyTheme(themeName) {
-            const root = document.documentElement;
-            const themes = {
-                'neon-purple': { primary: '#0b0a12', secondary: '#12101e', card: '#19162b', accent: '#a855f7',
-                    border: '#2d2848' },
-                'blood-red': { primary: '#0b0a12', secondary: '#1e1010', card: '#2b1616', accent: '#ef4444',
-                    border: '#482828' },
-                'emerald-matrix': { primary: '#0b0a12', secondary: '#101e12', card: '#162b1a', accent: '#34d399',
-                    border: '#28482e' },
-                'gold-luxury': { primary: '#0b0a12', secondary: '#1e1a10', card: '#2b2616', accent: '#fbbf24',
-                    border: '#484028' },
-                'synthwave-80s': { primary: '#0b0a12', secondary: '#1e101e', card: '#2b162b', accent: '#d946ef',
-                    border: '#482848' },
-                'obsidian-dark': { primary: '#0b0a12', secondary: '#121212', card: '#1a1a1a', accent: '#6b7280',
-                    border: '#2a2a2a' },
-                'tokyo-night': { primary: '#0b0a12', secondary: '#10141e', card: '#161b2b', accent: '#60a5fa',
-                    border: '#283048' },
-                'nordic-frost': { primary: '#0b0a12', secondary: '#10181e', card: '#16262b', accent: '#67e8f9',
-                    border: '#284848' },
-            };
-            const t = themes[themeName] || themes['neon-purple'];
-            root.style.setProperty('--bg-primary', t.primary);
-            root.style.setProperty('--bg-secondary', t.secondary);
-            root.style.setProperty('--bg-card', t.card);
-            root.style.setProperty('--accent', t.accent);
-            root.style.setProperty('--border-color', t.border);
-            // also update accent glow
-            root.style.setProperty('--accent-glow', t.accent + '40');
-            // update selected state in grid
-            document.querySelectorAll('.theme-card').forEach(el => {
-                el.classList.toggle('selected', el.dataset.theme === themeName);
-            });
-            store.themes = themeName;
-            saveStore();
-            toast(`Theme applied: ${themeName}`);
-        }
-
-        // ───────────────────────────────────────────────
-        //  SIDEBAR / NAV
-        // ───────────────────────────────────────────────
-        document.querySelectorAll('.sidebar-nav a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const page = this.dataset.page;
-                if (page) navigateTo(page);
-            });
-        });
-
-        document.getElementById('hamburgerBtn').addEventListener('click', function() {
-            document.getElementById('sidebar').classList.toggle('open');
-            document.getElementById('sidebarOverlay').classList.toggle('show');
-        });
-        document.getElementById('sidebarOverlay').addEventListener('click', function() {
-            document.getElementById('sidebar').classList.remove('open');
-            this.classList.remove('show');
-        });
-
-        // ───────────────────────────────────────────────
-        //  LOGOUT
-        // ───────────────────────────────────────────────
-        document.getElementById('logoutBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            if (confirm('Are you sure you want to sign out?')) {
-                toast('Signed out successfully.');
-                // in a real app, redirect to login
-            }
-        });
-
-        // ───────────────────────────────────────────────
-        //  GENERATE KEY EVENTS
-        // ───────────────────────────────────────────────
-        document.getElementById('randomKeyBtn').addEventListener('click', function() {
-            const entry = generateNewKey();
-            if (entry) {
-                document.getElementById('generatedKeyDisplay').style.display = 'block';
-                document.getElementById('generatedKeyText').textContent = entry.key;
-                document.getElementById('genKeyMeta').textContent = `Duration: ${entry.duration} · Devices: ${entry.deviceLimit}`;
-                toast(`Key generated: ${entry.key}`);
-            }
-        });
-
-        document.getElementById('generateKeyBtn').addEventListener('click', function() {
-            const custom = document.getElementById('customKeyInput').value.trim();
-            const entry = generateNewKey(custom || null);
-            if (entry) {
-                document.getElementById('generatedKeyDisplay').style.display = 'block';
-                document.getElementById('generatedKeyText').textContent = entry.key;
-                document.getElementById('genKeyMeta').textContent = `Duration: ${entry.duration} · Devices: ${entry.deviceLimit}`;
-                toast(`Key generated: ${entry.key}`);
-                document.getElementById('customKeyInput').value = '';
-            }
-        });
-
-        function copyGeneratedKey() {
-            const text = document.getElementById('generatedKeyText').textContent;
-            navigator.clipboard?.writeText(text).then(() => toast('Copied!')).catch(() => {
-                // fallback
-                const ta = document.createElement('textarea');
-                ta.value = text;
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                ta.remove();
-                toast('Copied!');
-            });
-        }
-
-        // ───────────────────────────────────────────────
-        //  PRICING SELECTOR
-        // ───────────────────────────────────────────────
-        document.querySelectorAll('.pricing-option').forEach(el => {
-            el.addEventListener('click', function() {
-                document.querySelectorAll('.pricing-option').forEach(p => p.classList.remove('selected'));
-                this.classList.add('selected');
-                const dur = this.dataset.dur;
-                const sel = document.getElementById('durationSelect');
-                Array.from(sel.options).forEach(opt => {
-                    opt.selected = opt.value === dur;
-                });
-            });
-        });
-
-        document.getElementById('durationSelect').addEventListener('change', function() {
-            const val = this.value;
-            document.querySelectorAll('.pricing-option').forEach(el => {
-                el.classList.toggle('selected', el.dataset.dur === val);
-            });
-        });
-
-        // ───────────────────────────────────────────────
-        //  ADD USER
-        // ───────────────────────────────────────────────
-        document.getElementById('addUserBtn').addEventListener('click', function() {
-            const username = prompt('Enter username:');
-            if (!username) return;
-            const email = prompt('Enter email:');
-            if (!email) return;
-            const role = prompt('Enter role (USER / RESELLER / ADMIN):') || 'USER';
-            store.users.push({ username, email, role: role.toUpperCase(), ref: 'REF-' + Math.random().toString(36).slice(2, 7)
-                    .toUpperCase() });
-            saveStore();
-            renderUsers();
-            updateDashboardStats();
-            toast(`Added user: ${username}`);
-        });
-
-        // ───────────────────────────────────────────────
-        //  ADD ADMIN
-        // ───────────────────────────────────────────────
-        document.getElementById('addAdminBtn').addEventListener('click', function() {
-            const username = prompt('Enter admin username:');
-            if (!username) return;
-            const email = prompt('Enter admin email:');
-            if (!email) return;
-            store.admins.push({ username, email, role: 'Admin', status: 'Active' });
-            saveStore();
-            renderAdmins();
-            toast(`Added admin: ${username}`);
-        });
-
-        // ───────────────────────────────────────────────
-        //  CREATE REFERRAL
-        // ───────────────────────────────────────────────
-        document.getElementById('createRefBtn').addEventListener('click', function() {
-            const code = document.getElementById('refCodeInput').value.trim() || 'PERADOX-' + Math.random().toString(36)
-            .slice(2, 7).toUpperCase();
-            const limit = document.getElementById('refLimitInput').value || '1';
-            if (store.referrals.some(r => r.code === code)) {
-                toast('Referral code already exists!');
-                return;
-            }
-            store.referrals.push({ code, limit: limit === '0' ? 'Unlimited' : limit, used: 0, createdBy: 'peradoxowner' });
-            saveStore();
-            renderReferrals();
-            document.getElementById('refCodeDisplay').textContent = code;
-            document.getElementById('refCreatedDisplay').style.display = 'block';
-            toast(`Referral code created: ${code}`);
-        });
-
-        // ───────────────────────────────────────────────
-        //  SAVE API
-        // ───────────────────────────────────────────────
-        document.getElementById('saveApiBtn').addEventListener('click', function() {
-            store.apiKey = document.getElementById('apiKeyInput').value;
-            store.apiSecret = document.getElementById('apiSecretInput').value;
-            saveStore();
-            toast('API settings saved!');
-        });
-
-        // ───────────────────────────────────────────────
-        //  SAVE MOD/LOADER
-        // ───────────────────────────────────────────────
-        document.getElementById('saveModLoaderBtn').addEventListener('click', function() {
-            store.modVersion = document.getElementById('modVersionSelect').value;
-            store.loaderType = document.getElementById('loaderTypeSelect').value;
-            saveStore();
-            toast('Mod/Loader configuration saved!');
-        });
-
-        // ───────────────────────────────────────────────
-        //  SAVE TELEGRAM
-        // ───────────────────────────────────────────────
-        document.getElementById('saveTgBtn').addEventListener('click', function() {
-            store.tgToken = document.getElementById('tgTokenInput').value;
-            store.tgChatId = document.getElementById('tgChatIdInput').value;
-            store.tgNotify = document.getElementById('tgNotifySelect').value;
-            saveStore();
-            toast('Telegram bot settings saved!');
-        });
-
-        // ───────────────────────────────────────────────
-        //  CREATE TENANT
-        // ───────────────────────────────────────────────
-        document.getElementById('createTenantBtn').addEventListener('click', function() {
-            const name = document.getElementById('tenantNameInput').value.trim();
-            const domain = document.getElementById('tenantDomainInput').value.trim();
-            const email = document.getElementById('tenantEmailInput').value.trim();
-            if (!name || !domain || !email) {
-                toast('Please fill in all tenant fields.');
-                return;
-            }
-            toast(`Tenant "${name}" created successfully!`);
-            document.getElementById('tenantNameInput').value = '';
-            document.getElementById('tenantDomainInput').value = '';
-            document.getElementById('tenantEmailInput').value = '';
-        });
-
-        // ───────────────────────────────────────────────
-        //  THEME SELECTOR
-        // ───────────────────────────────────────────────
-        document.querySelectorAll('.theme-card').forEach(el => {
-            el.addEventListener('click', function() {
-                document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('selected'));
-                this.classList.add('selected');
-            });
-        });
-
-        document.getElementById('applyThemeBtn').addEventListener('click', function() {
-            const selected = document.querySelector('.theme-card.selected');
-            if (selected) {
-                applyTheme(selected.dataset.theme);
-            } else {
-                toast('Please select a theme first.');
-            }
-        });
-
-        // ───────────────────────────────────────────────
-        //  INIT
-        // ───────────────────────────────────────────────
-        function init() {
-            // restore theme
-            applyTheme(store.themes);
-            // set form values
-            document.getElementById('apiKeyInput').value = store.apiKey;
-            document.getElementById('apiSecretInput').value = store.apiSecret;
-            document.getElementById('modVersionSelect').value = store.modVersion;
-            document.getElementById('loaderTypeSelect').value = store.loaderType;
-            document.getElementById('tgTokenInput').value = store.tgToken;
-            document.getElementById('tgChatIdInput').value = store.tgChatId;
-            document.getElementById('tgNotifySelect').value = store.tgNotify;
-            // render all
-            updateDashboardStats();
-            renderKeyManager();
-            renderUsers();
-            renderAdmins();
-            renderBlocked();
-            renderReferrals();
-            // default page
-            navigateTo('dashboard');
-        }
-
-        init();
-
-        // auto-close sidebar on resize
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 1024) {
-                document.getElementById('sidebar').classList.remove('open');
-                document.getElementById('sidebarOverlay').classList.remove('show');
-            }
-        });
-    </script>
-</body>
-</html>
+                        <div class="d-flex align-items-center">
+                            <div class="text-end me-3">
+                                <div class="fw-bold"><?php echo htmlspecialchars($_SESSION['username']); ?></div>
+                                <small style
